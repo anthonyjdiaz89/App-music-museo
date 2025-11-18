@@ -4,13 +4,15 @@
  */
 
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Animated } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Animated, Image } from 'react-native';
 import { Audio } from 'expo-av';
 import bundledLibrary from '../../assets/data/library.json';
 import { Track } from '../types';
 import { palette, typography, spacing } from '../theme';
 import { audioMap } from '../../assets/audio/map';
 import { loadLocalLibrary } from '../sync';
+import { coverByTrackMap } from '../../assets/covers/trackMap';
+import { useAudio } from '../contexts/AudioContext';
 
 interface PlayerScreenProps {
   route: {
@@ -26,79 +28,40 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
   const [track, setTrack] = useState<Track | undefined>(() => 
     (bundledLibrary.items as Track[]).find(t => t.id === trackId)
   );
-  const [sound, setSound] = useState<Audio.Sound | null>(null);
-  const [playing, setPlaying] = useState(false);
-  const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [position, setPosition] = useState(0);
-  const [duration, setDuration] = useState(0);
   const [isSpeakerMode, setIsSpeakerMode] = useState(false);
+  
+  const { 
+    currentTrack, 
+    isPlaying, 
+    isLoaded, 
+    position, 
+    duration, 
+    error, 
+    playTrack, 
+    togglePlayPause 
+  } = useAudio();
   
   const pulseAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    let active = true;
-    
     (async () => {
       const localLib = await loadLocalLibrary();
       const localTrack = localLib?.items?.find((t: Track) => t.id === trackId);
-      if (localTrack) setTrack(localTrack);
+      if (localTrack) {
+        setTrack(localTrack);
+      }
       
       const current = localTrack || track;
-      if (!current) return;
-      
-      const s = new Audio.Sound();
-      try {
-        if (current.localAudioPath) {
-          await s.loadAsync({ uri: current.localAudioPath });
-        } else {
-          const audioFilename = audioMap[current.id];
-          if (audioFilename) {
-            const audioPath = audioFilename.replace('./', '');
-            const audioUri = `/assets/audio/${audioPath}`;
-            console.log(`[PlayerScreen] Loading audio: ${audioUri} for track ${current.id}`);
-            await s.loadAsync({ uri: audioUri });
-          } else if (/^https?:\/\//i.test(current.audioUrl)) {
-            await s.loadAsync({ uri: current.audioUrl });
-          } else {
-            console.error(`[PlayerScreen] No audio source found for track ${current.id}`);
-            setError('Audio no disponible offline');
-            return;
-          }
-        }
-        
-        // Configurar callback de actualización de posición
-        s.setOnPlaybackStatusUpdate((status) => {
-          if (status.isLoaded) {
-            setPosition(status.positionMillis);
-            setDuration(status.durationMillis || 0);
-            setPlaying(status.isPlaying);
-          }
-        });
-        
-        if (active) {
-          setSound(s);
-          setLoaded(true);
-          setError(null);
-          console.log(`[PlayerScreen] Audio loaded successfully for track ${current.id}`);
-        }
-      } catch (e) {
-        console.error(`[PlayerScreen] Error loading audio for track ${current.id}:`, e);
-        if (active) {
-          setError(`Error al cargar el audio`);
-        }
+      if (current && (!currentTrack || currentTrack.id !== trackId)) {
+        // Solo reproducir si no es la misma canción que está sonando
+        await playTrack(current);
       }
     })();
-    
-    return () => { 
-      active = false; 
-      sound?.unloadAsync(); 
-    };
   }, [trackId]);
 
   // Animación de pulso cuando está reproduciendo
   useEffect(() => {
-    if (playing) {
+    if (isPlaying && currentTrack?.id === trackId) {
       Animated.loop(
         Animated.sequence([
           Animated.timing(pulseAnim, {
@@ -116,26 +79,7 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
     } else {
       pulseAnim.setValue(1);
     }
-  }, [playing]);
-
-  async function toggle() {
-    if (!sound || !loaded) {
-      setError('Audio no está listo');
-      return;
-    }
-    
-    const status = await sound.getStatusAsync();
-    if (!status.isLoaded) {
-      setError('Audio no cargado correctamente');
-      return;
-    }
-    
-    if (playing) {
-      await sound.pauseAsync();
-    } else {
-      await sound.playAsync();
-    }
-  }
+  }, [isPlaying, currentTrack, trackId]);
 
   const formatTime = (millis: number) => {
     const totalSeconds = Math.floor(millis / 1000);
@@ -162,17 +106,25 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
           <Text style={styles.backIcon}>←</Text>
         </TouchableOpacity>
         <View>
-          <Text style={styles.headerStatus}>{playing ? 'Reproduciendo' : 'Detenido'}</Text>
+          <Text style={styles.headerStatus}>{isPlaying && currentTrack?.id === trackId ? 'Reproduciendo' : 'Detenido'}</Text>
           <Text style={styles.headerTitle}>Reproductor de Audio</Text>
         </View>
       </View>
 
-      {/* Icono de auriculares grande */}
+      {/* Carátula del álbum o icono de auriculares */}
       <View style={styles.visualContainer}>
         <Animated.View style={[styles.headphoneFrame, { transform: [{ scale: pulseAnim }] }]}>
-          <View style={styles.headphoneIcon}>
-            <Text style={styles.headphoneText}>🎧</Text>
-          </View>
+          {coverByTrackMap[track.id] ? (
+            <Image 
+              source={coverByTrackMap[track.id]} 
+              style={styles.coverImage}
+              resizeMode="cover"
+            />
+          ) : (
+            <View style={styles.headphoneIcon}>
+              <Text style={styles.headphoneText}>🎧</Text>
+            </View>
+          )}
         </Animated.View>
 
         {/* Botón altavoz/principal */}
@@ -218,18 +170,18 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
       {/* Controles */}
       <View style={styles.controlsContainer}>
         {/* Botón de pausa (pequeño) */}
-        <TouchableOpacity style={styles.stopButton} disabled={!loaded}>
+        <TouchableOpacity style={styles.stopButton} disabled={!isLoaded}>
           <Text style={styles.stopIcon}>⏸</Text>
         </TouchableOpacity>
 
         {/* Botón de play principal (grande) */}
         <TouchableOpacity 
-          onPress={toggle} 
-          style={[styles.playButton, !loaded && styles.playButtonDisabled]}
-          disabled={!loaded}
+          onPress={togglePlayPause} 
+          style={[styles.playButton, !isLoaded && styles.playButtonDisabled]}
+          disabled={!isLoaded}
           activeOpacity={0.8}
         >
-          <Text style={styles.playIcon}>{playing ? '⏸' : '▶'}</Text>
+          <Text style={styles.playIcon}>{isPlaying && currentTrack?.id === trackId ? '⏸' : '▶'}</Text>
         </TouchableOpacity>
 
         {/* Toggle de repetición */}
@@ -305,6 +257,11 @@ const styles = StyleSheet.create({
   },
   headphoneText: {
     fontSize: 120,
+  },
+  coverImage: {
+    width: 180,
+    height: 180,
+    borderRadius: 16,
   },
   speakerButton: {
     position: 'absolute',

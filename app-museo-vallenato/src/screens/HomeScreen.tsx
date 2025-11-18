@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, TextInput, StyleSheet, Image } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, TextInput, StyleSheet, Image, useWindowDimensions } from 'react-native';
 import bundledLibrary from '../../assets/data/library.json';
 import { palette, typography, spacing } from '../theme';
 import { Track, Genre } from '../types';
 import { loadLocalLibrary } from '../sync';
 import { coverByTrackMap } from '../../assets/covers/trackMap';
+import { useAudio } from '../contexts/AudioContext';
 
 const genres: Genre[] = ['Merengue', 'Paseo', 'Puya', 'Son'];
 
@@ -28,6 +29,25 @@ export default function HomeScreen({ navigation }: any) {
   const [items, setItems] = useState<Track[]>(bundledLibrary.items as Track[]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGenre, setSelectedGenre] = useState<Genre | 'Todos'>('Todos');
+  const { width } = useWindowDimensions();
+  const { currentTrack, isPlaying, togglePlayPause, playTrack, position, duration } = useAudio();
+  
+  // Determinar número de columnas según el ancho de la pantalla
+  const numColumns = width >= 768 ? 4 : 2;
+
+  const handleTrackPress = async (track: Track) => {
+    await playTrack(track);
+    navigation.navigate('Player', { trackId: track.id });
+  };
+
+  const formatTime = (millis: number) => {
+    const totalSeconds = Math.floor(millis / 1000);
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = totalSeconds % 60;
+    return `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  };
+
+  const progress = duration > 0 ? position / duration : 0;
 
   useEffect(() => {
     (async () => {
@@ -59,42 +79,35 @@ export default function HomeScreen({ navigation }: any) {
     return (
       <TouchableOpacity 
         style={styles.card}
-        onPress={() => navigation.navigate('Player', { trackId: item.id })}
+        onPress={() => handleTrackPress(item)}
         activeOpacity={0.7}
       >
-        {/* Icono de género en la esquina superior izquierda */}
-        <View style={[styles.cardIconBadge, { backgroundColor: bgColor }]}>
-          <Text style={styles.iconBadgeText}>{icon}</Text>
-        </View>
-
-        {/* Imagen de carátula o placeholder */}
+        {/* Carátula o icono de género */}
         {coverSource ? (
           <Image 
             source={coverSource} 
-            style={styles.coverImage}
+            style={styles.coverThumbnail}
             resizeMode="cover"
           />
         ) : (
-          <View style={[styles.coverPlaceholder, { backgroundColor: bgColor }]}>
-            <Text style={styles.placeholderIcon}>♪</Text>
+          <View style={[styles.iconContainer, { backgroundColor: bgColor }]}>
+            <Text style={styles.iconText}>{icon}</Text>
           </View>
         )}
-
-        {/* Divisor */}
-        <View style={styles.cardDivider} />
         
         {/* Información de la canción */}
-        <View style={styles.cardInfo}>
+        <View style={styles.cardContent}>
           <Text style={styles.cardTitle} numberOfLines={1}>{item.title}</Text>
-          <Text style={styles.cardGenre} numberOfLines={1}>{item.genre === 'Son' ? 'Son' : item.genre}</Text>
+          <Text style={styles.cardGenre}>{item.genre === 'Son' ? 'Son' : item.genre}</Text>
+          
+          {/* Divisor */}
+          <View style={styles.cardDivider} />
+          
+          {/* Duración */}
+          {item.duration && (
+            <Text style={styles.cardDuration}>{item.duration}</Text>
+          )}
         </View>
-
-        {/* Duración en la esquina inferior derecha */}
-        {item.duration && (
-          <View style={styles.durationBadge}>
-            <Text style={styles.durationText}>{item.duration}</Text>
-          </View>
-        )}
       </TouchableOpacity>
     );
   };
@@ -154,11 +167,65 @@ export default function HomeScreen({ navigation }: any) {
         data={filteredItems}
         keyExtractor={t => t.id}
         renderItem={renderTrackCard}
-        numColumns={2}
+        key={numColumns}
+        numColumns={numColumns}
         columnWrapperStyle={styles.row}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
       />
+
+      {/* Mini reproductor flotante (PIP) */}
+      {currentTrack && (
+        <View style={styles.miniPlayer}>
+          <TouchableOpacity
+            style={styles.miniPlayerContent}
+            onPress={() => navigation.navigate('Player', { trackId: currentTrack.id })}
+            activeOpacity={0.9}
+          >
+            {coverByTrackMap[currentTrack.id] ? (
+              <Image 
+                source={coverByTrackMap[currentTrack.id]} 
+                style={styles.miniCover}
+                resizeMode="cover"
+              />
+            ) : (
+              <View style={styles.miniCoverPlaceholder}>
+                <Text style={styles.miniCoverIcon}>♪</Text>
+              </View>
+            )}
+            
+            <View style={styles.miniPlayerInfo}>
+              <Text style={styles.miniPlayerTitle} numberOfLines={1}>
+                {currentTrack.title}
+              </Text>
+              <Text style={styles.miniPlayerArtist} numberOfLines={1}>
+                {currentTrack.artist}
+              </Text>
+            </View>
+
+            <View style={styles.miniTimeContainer}>
+              <Text style={styles.miniTimeText}>{formatTime(position)}</Text>
+              <Text style={styles.miniTimeSeparator}>/</Text>
+              <Text style={styles.miniTimeText}>{formatTime(duration)}</Text>
+            </View>
+
+            <TouchableOpacity
+              style={styles.miniPlayButton}
+              onPress={(e) => {
+                e.stopPropagation();
+                togglePlayPause();
+              }}
+            >
+              <Text style={styles.miniPlayIcon}>{isPlaying ? '⏸' : '▶'}</Text>
+            </TouchableOpacity>
+          </TouchableOpacity>
+          
+          {/* Barra de progreso */}
+          <View style={styles.miniProgressBar}>
+            <View style={[styles.miniProgressFill, { width: `${progress * 100}%` }]} />
+          </View>
+        </View>
+      )}
 
       {/* Botón flotante de sincronización */}
       <TouchableOpacity
@@ -279,55 +346,41 @@ const styles = StyleSheet.create({
   card: {
     flex: 1,
     margin: spacing.sm,
-    borderRadius: 12,
+    borderRadius: 16,
+    padding: spacing.md,
     backgroundColor: '#FFFFFF',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.08,
     shadowRadius: 6,
     elevation: 3,
-    overflow: 'hidden',
-    position: 'relative',
+    minHeight: 100,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
   },
-  cardIconBadge: {
-    position: 'absolute',
-    top: 8,
-    left: 8,
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    justifyContent: 'center',
-    alignItems: 'center',
-    zIndex: 10,
-  },
-  iconBadgeText: {
-    fontSize: 16,
-  },
-  coverImage: {
-    width: '100%',
-    height: 140,
+  coverThumbnail: {
+    width: 56,
+    height: 56,
+    borderRadius: 12,
+    marginRight: spacing.md,
     backgroundColor: '#F5F5F5',
   },
-  coverPlaceholder: {
-    width: '100%',
-    height: 140,
+  iconContainer: {
+    width: 56,
+    height: 56,
+    borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',
+    marginRight: spacing.md,
   },
-  placeholderIcon: {
-    fontSize: 48,
-    opacity: 0.3,
+  iconText: {
+    fontSize: 28,
   },
-  cardDivider: {
-    height: 1,
-    backgroundColor: '#E0E0E0',
-  },
-  cardInfo: {
-    padding: spacing.md,
-    paddingBottom: 32,
+  cardContent: {
+    flex: 1,
   },
   cardTitle: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: '600',
     color: '#2C2C2C',
     marginBottom: 4,
@@ -335,20 +388,17 @@ const styles = StyleSheet.create({
   cardGenre: {
     fontSize: 12,
     color: '#999999',
+    marginBottom: 8,
   },
-  durationBadge: {
-    position: 'absolute',
-    bottom: 8,
-    right: 8,
-    backgroundColor: 'rgba(0, 0, 0, 0.6)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
+  cardDivider: {
+    height: 1,
+    backgroundColor: '#E0E0E0',
+    marginBottom: 8,
   },
-  durationText: {
-    fontSize: 11,
-    color: '#FFFFFF',
-    fontWeight: '500',
+  cardDuration: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: '#4DD0E1',
   },
   cardIcon: {
     width: 48,
@@ -359,21 +409,96 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: spacing.sm,
   },
-  iconText: {
-    fontSize: 24,
-  },
-  cardContent: {
-    flex: 1,
-  },
   cardCategory: {
     fontSize: 12,
     color: '#666',
   },
-  cardDuration: {
-    fontSize: 14,
+  miniPlayer: {
+    position: 'absolute',
+    bottom: spacing.xl + 80,
+    right: spacing.lg,
+    width: 380,
+    backgroundColor: 'rgba(247, 127, 0, 0.95)',
+    borderRadius: 16,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+    elevation: 10,
+    overflow: 'hidden',
+  },
+  miniPlayerContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: spacing.sm + 2,
+    gap: spacing.sm,
+  },
+  miniCover: {
+    width: 48,
+    height: 48,
+    borderRadius: 10,
+    backgroundColor: '#F5F5F5',
+  },
+  miniCoverPlaceholder: {
+    width: 48,
+    height: 48,
+    borderRadius: 10,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  miniCoverIcon: {
+    fontSize: 20,
+    color: '#FFFFFF',
+  },
+  miniPlayerInfo: {
+    flex: 1,
+  },
+  miniPlayerTitle: {
+    fontSize: 13,
     fontWeight: '600',
-    color: '#4DD0E1',
-    marginTop: spacing.xs,
+    color: '#FFFFFF',
+    marginBottom: 2,
+  },
+  miniPlayerArtist: {
+    fontSize: 11,
+    color: 'rgba(255, 255, 255, 0.8)',
+  },
+  miniTimeContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+    marginRight: spacing.xs,
+  },
+  miniTimeText: {
+    fontSize: 11,
+    fontWeight: '500',
+    color: '#FFFFFF',
+  },
+  miniTimeSeparator: {
+    fontSize: 11,
+    color: 'rgba(255, 255, 255, 0.6)',
+  },
+  miniPlayButton: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: 'rgba(255, 255, 255, 0.3)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  miniPlayIcon: {
+    fontSize: 16,
+    color: '#FFFFFF',
+    marginLeft: 1,
+  },
+  miniProgressBar: {
+    height: 3,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+  },
+  miniProgressFill: {
+    height: '100%',
+    backgroundColor: '#FFFFFF',
   },
   syncFab: {
     position: 'absolute',

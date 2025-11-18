@@ -8,6 +8,7 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
+    "build": "expo export --platform web",
     "media": "node ../tools/serveMedia.mjs",
     "update:audio": "node ../tools/updateAudioUrls.mjs 192.168.1.10 5173"
   },

@@ -4,19 +4,26 @@ const { getDefaultConfig } = require('expo/metro-config');
 /** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(__dirname);
 
+// Agregar soporte para extensiones de imagen en mayúsculas
+config.resolver = {
+  ...config.resolver,
+  assetExts: [
+    ...config.resolver.assetExts,
+    'JPG', 'JPEG', 'PNG', 'GIF', 'WEBP'
+  ],
+};
+
 // Fix para Windows: normalizar rutas con barras forward
 if (process.platform === 'win32') {
-  const originalNormalize = config.server?.enhanceMiddleware;
   config.server = {
     ...config.server,
     enhanceMiddleware: (middleware, metroServer) => {
       return (req, res, next) => {
-        // Reemplazar barras invertidas con barras forward en la URL
         if (req.url) {
+          // Reemplazar %5C (barra invertida codificada) con barra forward
+          req.url = req.url.replace(/%5C/gi, '/');
+          // También reemplazar barras invertidas normales por si acaso
           req.url = req.url.replace(/\\/g, '/');
-        }
-        if (originalNormalize) {
-          return originalNormalize(middleware, metroServer)(req, res, next);
         }
         return middleware(req, res, next);
       };

@@ -13,6 +13,7 @@ import SearchScreen from './src/screens/SearchScreen';
 import SyncScreen from './src/screens/SyncScreen';
 import { palette } from './src/theme';
 import ErrorBoundary from './src/components/ErrorBoundary';
+import { AudioProvider } from './src/contexts/AudioContext';
 
 const Stack = createNativeStackNavigator();
 
@@ -67,21 +68,23 @@ export default function App() {
 
   return (
     <ErrorBoundary>
-      <NavigationContainer>
-        <Stack.Navigator 
-          initialRouteName="Welcome"
-          screenOptions={{ 
-            headerShown: false,
-            contentStyle: { backgroundColor: palette.background }
-          }}
-        >
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Search" component={SearchScreen} />
-          <Stack.Screen name="Player" component={PlayerScreen} />
-          <Stack.Screen name="Sync" component={SyncScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <AudioProvider>
+        <NavigationContainer>
+          <Stack.Navigator 
+            initialRouteName="Welcome"
+            screenOptions={{ 
+              headerShown: false,
+              contentStyle: { backgroundColor: palette.background }
+            }}
+          >
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Search" component={SearchScreen} />
+            <Stack.Screen name="Player" component={PlayerScreen} />
+            <Stack.Screen name="Sync" component={SyncScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AudioProvider>
     </ErrorBoundary>
   );
 }
