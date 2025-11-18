@@ -192,7 +192,7 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
       <View style={styles.infoContainer}>
         <Text style={styles.title}>{track.title}</Text>
         <View style={styles.metaRow}>
-          <Text style={styles.category}>{track.category || track.genre}</Text>
+          <Text style={styles.category}>{track.genre}</Text>
           <Text style={styles.separator}>|</Text>
           <Text style={styles.description}>{track.artist}</Text>
         </View>
