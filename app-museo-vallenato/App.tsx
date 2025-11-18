@@ -6,6 +6,7 @@ import * as Font from 'expo-font';
 import { useEffect, useState } from 'react';
 import { View, ActivityIndicator, TouchableOpacity, Text } from 'react-native';
 import { fetchManifest, getLocalVersion, syncLibrary } from './src/sync';
+import WelcomeScreen from './src/screens/WelcomeScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import PlayerScreen from './src/screens/PlayerScreen';
 import SearchScreen from './src/screens/SearchScreen';
@@ -67,21 +68,18 @@ export default function App() {
   return (
     <ErrorBoundary>
       <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerStyle: { backgroundColor: palette.surface }, headerTintColor: '#fff' }}>
-          <Stack.Screen name="Home" component={HomeScreen} options={({ navigation }) => ({ title: 'Inicio', headerRight: () => (
-            syncing ? (
-              <View style={{ marginRight:8 }}>
-                <ActivityIndicator color={palette.accent} />
-              </View>
-            ) : (
-              <TouchableOpacity onPress={() => navigation.navigate('Sync')} style={{ paddingHorizontal:12, paddingVertical:6, marginRight:4 }}>
-                <Text style={{ color:'#fff', fontSize:14 }}>Sync</Text>
-              </TouchableOpacity>
-            )
-          ) })} />
-          <Stack.Screen name="Search" component={SearchScreen} options={{ title: 'Buscar' }} />
-          <Stack.Screen name="Player" component={PlayerScreen} options={{ title: 'Reproduciendo' }} />
-          <Stack.Screen name="Sync" component={SyncScreen} options={{ title: 'Sincronizar' }} />
+        <Stack.Navigator 
+          initialRouteName="Welcome"
+          screenOptions={{ 
+            headerShown: false,
+            contentStyle: { backgroundColor: palette.background }
+          }}
+        >
+          <Stack.Screen name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Search" component={SearchScreen} />
+          <Stack.Screen name="Player" component={PlayerScreen} />
+          <Stack.Screen name="Sync" component={SyncScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </ErrorBoundary>

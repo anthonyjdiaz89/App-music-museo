@@ -1,36 +1,49 @@
 /**
  * Museo del Vallenato - Design System
  * Color palette and typography based on institutional brand guidelines
+ * Adaptado para UI tipo kiosk con fondos claros
  */
 
 export const palette = {
-  background: '#0A0A0A',
-  surface: '#1A1A1A',
-  surfaceElevated: '#252525',
+  // Fondos claros para modo kiosk
+  background: '#FAFAFA',
+  surface: '#FFFFFF',
+  surfaceElevated: '#F5F5F5',
   
-  textPrimary: '#FFFFFF',
-  textSecondary: '#B8B8B8',
-  textTertiary: '#787878',
+  // Textos oscuros sobre fondo claro
+  textPrimary: '#2C2C2C',
+  textSecondary: '#666666',
+  textTertiary: '#888888',
   
-  primary: '#F77F00',
+  // Colores institucionales CCMV
+  primary: '#F77F00',        // Naranja principal
   primaryDark: '#D66B00',
   primaryLight: '#FF9933',
   
-  secondary: '#FFB703',
+  secondary: '#FFB703',      // Amarillo secundario
   secondaryDark: '#E6A300',
   
-  accent: '#FB8500',
-  accentAlt: '#FFAA33',
+  accent: '#FB8500',         // Naranja acento
+  accentAlt: '#4DD0E1',      // Turquesa alternativo (aliavoz principal)
   
+  // Estados
   success: '#4CAF50',
   error: '#F44336',
   warning: '#FF9800',
   info: '#2196F3',
   
-  border: '#2A2A2A',
-  borderLight: '#363636',
+  // Bordes y divisores
+  border: '#E0E0E0',
+  borderLight: '#F0F0F0',
   
-  overlay: 'rgba(0, 0, 0, 0.7)',
+  // Overlay para modales
+  overlay: 'rgba(0, 0, 0, 0.5)',
+  
+  // Colores de categorías
+  categoryHistory: '#FFE5CC',
+  categoryBio: '#FFE0CC',
+  categoryInstruments: '#FFEACC',
+  categoryTestimonies: '#FFD5CC',
 };
 
 export const typography = {
@@ -87,21 +100,21 @@ export const shadows = {
   sm: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.05,
     shadowRadius: 3.84,
     elevation: 2,
   },
   md: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.08,
     shadowRadius: 4.65,
     elevation: 4,
   },
   lg: {
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.37,
+    shadowOpacity: 0.12,
     shadowRadius: 7.49,
     elevation: 8,
   }
