@@ -59,11 +59,38 @@ export default function HomeScreen({ navigation }: any) {
     })();
   }, []);
 
-  // Filtrar items por búsqueda y género
+  // Filtrar items por búsqueda y género con búsqueda mejorada
   const filteredItems = items.filter(item => {
-    const matchesSearch = !searchQuery || 
-      item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      item.artist.toLowerCase().includes(searchQuery.toLowerCase());
+    // Si no hay búsqueda, solo filtrar por género
+    if (!searchQuery) {
+      const matchesGenre = selectedGenre === 'Todos' || item.genre === selectedGenre;
+      return matchesGenre;
+    }
+
+    // Normalizar búsqueda: quitar acentos, convertir a minúsculas y dividir en palabras
+    const normalizeText = (text: string) => 
+      text.toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '');
+
+    const searchWords = normalizeText(searchQuery).split(/\s+/).filter(w => w.length > 0);
+    
+    // Crear un string con todos los campos buscables
+    const searchableContent = [
+      item.title,
+      item.artist,
+      item.genre,
+      item.description || '',
+      // Separar nombre y apellido del artista
+      ...item.artist.split(' ')
+    ].join(' ');
+
+    const normalizedContent = normalizeText(searchableContent);
+
+    // Verificar que todas las palabras de búsqueda estén en el contenido
+    const matchesSearch = searchWords.every(word => 
+      normalizedContent.includes(word)
+    );
     
     const matchesGenre = selectedGenre === 'Todos' || item.genre === selectedGenre;
     
@@ -141,7 +168,7 @@ export default function HomeScreen({ navigation }: any) {
         <Ionicons name="search" size={20} color="#ff206e" style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
-          placeholder="Buscar por título, artista o género..."
+          placeholder="Buscar canción, artista, género o palabra clave..."
           value={searchQuery}
           onChangeText={setSearchQuery}
           placeholderTextColor="#999"
@@ -277,7 +304,7 @@ export default function HomeScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FAFAFA',
+    backgroundColor: palette.background,
   },
   header: {
     backgroundColor: '#ff206e',
@@ -344,7 +371,7 @@ const styles = StyleSheet.create({
   searchContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.surface,
     marginHorizontal: spacing.lg,
     marginTop: spacing.lg,
     marginBottom: spacing.md,
@@ -365,7 +392,7 @@ const styles = StyleSheet.create({
   searchInput: {
     flex: 1,
     fontSize: 16,
-    color: '#2C2C2C',
+    color: palette.textPrimary,
   },
   filterContainer: {
     flexDirection: 'row',
@@ -380,7 +407,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
     borderRadius: 20,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.surface,
     borderWidth: 2,
     borderColor: '#ff206e',
   },
@@ -408,10 +435,10 @@ const styles = StyleSheet.create({
     margin: spacing.sm,
     borderRadius: 16,
     padding: spacing.md,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.surface,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.3,
     shadowRadius: 6,
     elevation: 3,
     minHeight: 100,
@@ -423,7 +450,7 @@ const styles = StyleSheet.create({
     height: 56,
     borderRadius: 12,
     marginRight: spacing.md,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: palette.surfaceElevated,
   },
   iconContainer: {
     width: 56,
@@ -442,17 +469,17 @@ const styles = StyleSheet.create({
   cardTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#2C2C2C',
+    color: palette.textPrimary,
     marginBottom: 4,
   },
   cardGenre: {
     fontSize: 12,
-    color: '#999999',
+    color: palette.textSecondary,
     marginBottom: 8,
   },
   cardDivider: {
     height: 1,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: palette.border,
     marginBottom: 8,
   },
   cardDuration: {

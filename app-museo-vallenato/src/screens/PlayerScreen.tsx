@@ -318,7 +318,7 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: palette.background,
   },
   header: {
     flexDirection: 'row',
@@ -326,25 +326,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.xl + 10,
     paddingBottom: spacing.lg,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.surface,
     gap: spacing.md,
   },
   backButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#F0F0F0',
+    backgroundColor: palette.surfaceElevated,
     justifyContent: 'center',
     alignItems: 'center',
   },
   headerStatus: {
     fontSize: 12,
-    color: '#888',
+    color: palette.textSecondary,
   },
   headerTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#2C2C2C',
+    color: palette.textPrimary,
   },
   visualContainer: {
     alignItems: 'center',
@@ -356,13 +356,13 @@ const styles = StyleSheet.create({
     height: 240,
     borderRadius: 24,
     borderWidth: 6,
-    borderColor: '#FFB84D',
-    backgroundColor: '#FFFFFF',
+    borderColor: '#ff206e',
+    backgroundColor: palette.surface,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
+    shadowColor: '#ff206e',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.3,
     shadowRadius: 12,
     elevation: 6,
   },
@@ -409,7 +409,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: '700',
-    color: '#2C2C2C',
+    color: palette.textPrimary,
     textAlign: 'center',
     marginBottom: spacing.sm,
   },
@@ -420,15 +420,15 @@ const styles = StyleSheet.create({
   },
   category: {
     fontSize: 16,
-    color: '#666',
+    color: palette.textSecondary,
   },
   separator: {
     fontSize: 16,
-    color: '#CCC',
+    color: palette.border,
   },
   description: {
     fontSize: 16,
-    color: '#888',
+    color: palette.textSecondary,
   },
   progressContainer: {
     flexDirection: 'row',
@@ -439,13 +439,13 @@ const styles = StyleSheet.create({
   },
   timeText: {
     fontSize: 14,
-    color: '#666',
+    color: palette.textSecondary,
     width: 45,
   },
   progressBar: {
     flex: 1,
     height: 6,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: palette.border,
     borderRadius: 3,
     position: 'relative',
   },
@@ -474,11 +474,11 @@ const styles = StyleSheet.create({
   queueInfo: {
     alignItems: 'center',
     paddingVertical: spacing.sm,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.surface,
   },
   queueText: {
     fontSize: 13,
-    color: '#888',
+    color: palette.textSecondary,
     fontWeight: '500',
   },
   allControlsContainer: {
@@ -493,7 +493,7 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.surface,
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#ff206e',
@@ -531,7 +531,7 @@ const styles = StyleSheet.create({
     gap: spacing.xs,
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.sm,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.surface,
     borderRadius: 20,
     borderWidth: 2,
     borderColor: '#ff206e',

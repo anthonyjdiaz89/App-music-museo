@@ -1,30 +1,30 @@
 /**
  * Museo del Vallenato - Design System
  * Color palette and typography based on institutional brand guidelines
- * Adaptado para UI tipo kiosk con fondos claros
+ * Modo Dark con rosa institucional como color principal
  */
 
 export const palette = {
-  // Fondos claros para modo kiosk
-  background: '#FAFAFA',
-  surface: '#FFFFFF',
-  surfaceElevated: '#F5F5F5',
+  // Fondos oscuros para modo dark
+  background: '#0A0A0A',
+  surface: '#1A1A1A',
+  surfaceElevated: '#252525',
   
-  // Textos oscuros sobre fondo claro
-  textPrimary: '#2C2C2C',
-  textSecondary: '#666666',
-  textTertiary: '#888888',
+  // Textos claros sobre fondo oscuro
+  textPrimary: '#FFFFFF',
+  textSecondary: '#B0B0B0',
+  textTertiary: '#808080',
   
-  // Colores institucionales CCMV
-  primary: '#F77F00',        // Naranja principal
-  primaryDark: '#D66B00',
-  primaryLight: '#FF9933',
+  // Color institucional principal
+  primary: '#ff206e',        // Rosa institucional
+  primaryDark: '#CC1A58',
+  primaryLight: '#FF4D8A',
   
   secondary: '#FFB703',      // Amarillo secundario
   secondaryDark: '#E6A300',
   
-  accent: '#FB8500',         // Naranja acento
-  accentAlt: '#4DD0E1',      // Turquesa alternativo (aliavoz principal)
+  accent: '#ff206e',         // Rosa acento
+  accentAlt: '#4DD0E1',      // Turquesa alternativo (altavoz principal)
   
   // Estados
   success: '#4CAF50',
@@ -33,17 +33,17 @@ export const palette = {
   info: '#2196F3',
   
   // Bordes y divisores
-  border: '#E0E0E0',
-  borderLight: '#F0F0F0',
+  border: '#2A2A2A',
+  borderLight: '#1F1F1F',
   
   // Overlay para modales
-  overlay: 'rgba(0, 0, 0, 0.5)',
+  overlay: 'rgba(0, 0, 0, 0.7)',
   
-  // Colores de categorías
-  categoryHistory: '#FFE5CC',
-  categoryBio: '#FFE0CC',
-  categoryInstruments: '#FFEACC',
-  categoryTestimonies: '#FFD5CC',
+  // Colores de categorías con transparencia para modo dark
+  categoryHistory: 'rgba(255, 32, 110, 0.15)',
+  categoryBio: 'rgba(255, 32, 110, 0.2)',
+  categoryInstruments: 'rgba(255, 32, 110, 0.25)',
+  categoryTestimonies: 'rgba(255, 32, 110, 0.3)',
 };
 
 export const typography = {

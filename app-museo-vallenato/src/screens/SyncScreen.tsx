@@ -118,7 +118,7 @@ export default function SyncScreen({ navigation }: any) {
         {/* Estadísticas en tarjetas */}
         <View style={styles.statsContainer}>
           <View style={styles.statCard}>
-            <View style={[styles.statIcon, { backgroundColor: '#FFE5CC' }]}>
+            <View style={[styles.statIcon, { backgroundColor: 'rgba(255, 32, 110, 0.15)' }]}>
               <Text style={styles.statIconText}>📁</Text>
             </View>
             <Text style={styles.statLabel}>Total Audios</Text>
@@ -126,7 +126,7 @@ export default function SyncScreen({ navigation }: any) {
           </View>
 
           <View style={styles.statCard}>
-            <View style={[styles.statIcon, { backgroundColor: '#D4F4DD' }]}>
+            <View style={[styles.statIcon, { backgroundColor: 'rgba(255, 32, 110, 0.2)' }]}>
               <Text style={styles.statIconText}>✓</Text>
             </View>
             <Text style={styles.statLabel}>Sincronizados</Text>
@@ -134,7 +134,7 @@ export default function SyncScreen({ navigation }: any) {
           </View>
 
           <View style={styles.statCard}>
-            <View style={[styles.statIcon, { backgroundColor: '#D4E6F4' }]}>
+            <View style={[styles.statIcon, { backgroundColor: 'rgba(255, 32, 110, 0.25)' }]}>
               <Text style={styles.statIconText}>↻</Text>
             </View>
             <Text style={styles.statLabel}>Pendientes</Text>
@@ -179,10 +179,10 @@ export default function SyncScreen({ navigation }: any) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: palette.background,
   },
   header: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.surface,
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.xl + 10,
     paddingBottom: spacing.lg,
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     gap: spacing.md,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 2,
   },
@@ -199,29 +199,29 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#F0F0F0',
+    backgroundColor: palette.surfaceElevated,
     justifyContent: 'center',
     alignItems: 'center',
   },
   backIcon: {
     fontSize: 24,
-    color: '#2C2C2C',
+    color: palette.textPrimary,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#2C2C2C',
+    color: palette.textPrimary,
   },
   headerSubtitle: {
     fontSize: 12,
-    color: '#888',
+    color: palette.textSecondary,
   },
   content: {
     flex: 1,
     padding: spacing.lg,
   },
   infoCard: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.surface,
     borderRadius: 16,
     padding: spacing.lg,
     flexDirection: 'row',
@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.3,
     shadowRadius: 6,
     elevation: 2,
   },
@@ -237,7 +237,7 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 12,
-    backgroundColor: '#FFE5CC',
+    backgroundColor: 'rgba(255, 32, 110, 0.15)',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -250,17 +250,17 @@ const styles = StyleSheet.create({
   infoTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#2C2C2C',
+    color: palette.textPrimary,
     marginBottom: 4,
   },
   infoDescription: {
     fontSize: 14,
-    color: '#888',
+    color: palette.textSecondary,
     marginBottom: 8,
   },
   lastSyncText: {
     fontSize: 12,
-    color: '#999',
+    color: palette.textTertiary,
   },
   syncButton: {
     backgroundColor: palette.primary,
@@ -297,13 +297,13 @@ const styles = StyleSheet.create({
   },
   statCard: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: palette.surface,
     borderRadius: 16,
     padding: spacing.md,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.05,
+    shadowOpacity: 0.3,
     shadowRadius: 6,
     elevation: 2,
   },
@@ -320,34 +320,34 @@ const styles = StyleSheet.create({
   },
   statLabel: {
     fontSize: 12,
-    color: '#888',
+    color: palette.textSecondary,
     marginBottom: 4,
   },
   statValue: {
     fontSize: 32,
     fontWeight: '700',
-    color: '#2C2C2C',
+    color: palette.textPrimary,
   },
   statusCard: {
-    backgroundColor: '#D4F4DD',
+    backgroundColor: 'rgba(76, 175, 80, 0.15)',
     borderRadius: 12,
     padding: spacing.md,
     marginBottom: spacing.lg,
   },
   statusCardError: {
-    backgroundColor: '#FFEBEE',
+    backgroundColor: 'rgba(244, 67, 54, 0.15)',
   },
   statusText: {
     fontSize: 14,
-    color: '#2E7D32',
+    color: '#4CAF50',
     textAlign: 'center',
   },
   statusTextError: {
-    color: '#C62828',
+    color: '#F44336',
   },
   infoBox: {
     flexDirection: 'row',
-    backgroundColor: '#E3F2FD',
+    backgroundColor: 'rgba(33, 150, 243, 0.15)',
     borderRadius: 12,
     padding: spacing.md,
     gap: spacing.sm,
@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
   infoBoxText: {
     flex: 1,
     fontSize: 13,
-    color: '#1565C0',
+    color: '#2196F3',
     lineHeight: 18,
   },
   logContainer: {
@@ -368,7 +368,7 @@ const styles = StyleSheet.create({
   logTitle: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#2C2C2C',
+    color: palette.textPrimary,
     marginBottom: spacing.sm,
   },
   logBox: {
