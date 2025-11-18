@@ -5,6 +5,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Animated, Image } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 import bundledLibrary from '../../assets/data/library.json';
 import { Track } from '../types';
@@ -12,7 +13,7 @@ import { palette, typography, spacing } from '../theme';
 import { audioMap } from '../../assets/audio/map';
 import { loadLocalLibrary } from '../sync';
 import { coverByTrackMap } from '../../assets/covers/trackMap';
-import { useAudio } from '../contexts/AudioContext';
+import { useAudio, PlaybackMode } from '../contexts/AudioContext';
 
 interface PlayerScreenProps {
   route: {
@@ -36,9 +37,17 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
     isLoaded, 
     position, 
     duration, 
-    error, 
+    error,
+    playbackMode,
+    queue,
+    currentIndex,
     playTrack, 
-    togglePlayPause 
+    togglePlayPause,
+    playNext,
+    playPrevious,
+    seekTo,
+    setQueue,
+    setPlaybackMode,
   } = useAudio();
   
   const pulseAnim = useRef(new Animated.Value(1)).current;
@@ -46,9 +55,17 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
   useEffect(() => {
     (async () => {
       const localLib = await loadLocalLibrary();
-      const localTrack = localLib?.items?.find((t: Track) => t.id === trackId);
+      const allTracks = localLib?.items || bundledLibrary.items as Track[];
+      const localTrack = allTracks.find((t: Track) => t.id === trackId);
+      
       if (localTrack) {
         setTrack(localTrack);
+      }
+      
+      // Configurar la cola completa de reproducción
+      const currentTrackIndex = allTracks.findIndex((t: Track) => t.id === trackId);
+      if (currentTrackIndex !== -1) {
+        setQueue(allTracks, currentTrackIndex);
       }
       
       const current = localTrack || track;
@@ -58,6 +75,47 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
       }
     })();
   }, [trackId]);
+
+  // Funciones helper para controles avanzados
+  const handleSeekForward = () => {
+    const newPosition = Math.min(duration, position + 10000);
+    seekTo(newPosition);
+  };
+
+  const handleSeekBackward = () => {
+    const newPosition = Math.max(0, position - 10000);
+    seekTo(newPosition);
+  };
+
+  const cyclePlaybackMode = () => {
+    const modes = [
+      PlaybackMode.NORMAL,
+      PlaybackMode.REPEAT_ONE,
+      PlaybackMode.REPEAT_ALL,
+      PlaybackMode.SHUFFLE,
+    ];
+    const currentModeIndex = modes.indexOf(playbackMode);
+    const nextMode = modes[(currentModeIndex + 1) % modes.length];
+    setPlaybackMode(nextMode);
+  };
+
+  const getPlaybackModeIcon = () => {
+    switch (playbackMode) {
+      case PlaybackMode.REPEAT_ONE: return '🔂';
+      case PlaybackMode.REPEAT_ALL: return '🔁';
+      case PlaybackMode.SHUFFLE: return '🔀';
+      default: return '→';
+    }
+  };
+
+  const getPlaybackModeText = () => {
+    switch (playbackMode) {
+      case PlaybackMode.REPEAT_ONE: return 'UNO';
+      case PlaybackMode.REPEAT_ALL: return 'TODO';
+      case PlaybackMode.SHUFFLE: return 'ALEA';
+      default: return 'OFF';
+    }
+  };
 
   // Animación de pulso cuando está reproduciendo
   useEffect(() => {
@@ -103,13 +161,22 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
       {/* Header con botón volver */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Text style={styles.backIcon}>←</Text>
+          <Ionicons name="arrow-back" size={24} color="#2C2C2C" />
         </TouchableOpacity>
         <View>
           <Text style={styles.headerStatus}>{isPlaying && currentTrack?.id === trackId ? 'Reproduciendo' : 'Detenido'}</Text>
           <Text style={styles.headerTitle}>Reproductor de Audio</Text>
         </View>
       </View>
+
+      {/* Información de cola */}
+      {queue.length > 0 && (
+        <View style={styles.queueInfo}>
+          <Text style={styles.queueText}>
+            Pista {currentIndex + 1} de {queue.length}
+          </Text>
+        </View>
+      )}
 
       {/* Carátula del álbum o icono de auriculares */}
       <View style={styles.visualContainer}>
@@ -133,7 +200,11 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
           onPress={() => setIsSpeakerMode(!isSpeakerMode)}
           activeOpacity={0.7}
         >
-          <Text style={styles.speakerIcon}>🔊</Text>
+          <Ionicons 
+            name={isSpeakerMode ? "volume-high" : "volume-medium"} 
+            size={20} 
+            color="#FFFFFF" 
+          />
           <Text style={styles.speakerText}>
             {isSpeakerMode ? 'Principal' : 'Altavoz'}
           </Text>
@@ -167,11 +238,24 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
         </View>
       )}
 
-      {/* Controles */}
-      <View style={styles.controlsContainer}>
-        {/* Botón de pausa (pequeño) */}
-        <TouchableOpacity style={styles.stopButton} disabled={!isLoaded}>
-          <Text style={styles.stopIcon}>⏸</Text>
+      {/* Controles unificados en una fila */}
+      <View style={styles.allControlsContainer}>
+        {/* Botón Retroceder 10s */}
+        <TouchableOpacity 
+          style={[styles.controlButton, !isLoaded && styles.controlButtonDisabled]}
+          onPress={handleSeekBackward}
+          disabled={!isLoaded}
+        >
+          <Ionicons name="play-back" size={24} color="#ff206e" />
+        </TouchableOpacity>
+
+        {/* Botón Anterior */}
+        <TouchableOpacity 
+          style={[styles.controlButton, queue.length === 0 && styles.controlButtonDisabled]}
+          onPress={playPrevious}
+          disabled={queue.length === 0}
+        >
+          <Ionicons name="play-skip-back" size={28} color="#ff206e" />
         </TouchableOpacity>
 
         {/* Botón de play principal (grande) */}
@@ -181,13 +265,50 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
           disabled={!isLoaded}
           activeOpacity={0.8}
         >
-          <Text style={styles.playIcon}>{isPlaying && currentTrack?.id === trackId ? '⏸' : '▶'}</Text>
+          <Ionicons 
+            name={isPlaying && currentTrack?.id === trackId ? "pause" : "play"} 
+            size={48} 
+            color="#FFFFFF" 
+            style={{ marginLeft: isPlaying ? 0 : 4 }}
+          />
         </TouchableOpacity>
 
-        {/* Toggle de repetición */}
-        <TouchableOpacity style={styles.loopButton}>
-          <Text style={styles.loopIcon}>🔄</Text>
-          <Text style={styles.loopText}>OFF</Text>
+        {/* Botón Siguiente */}
+        <TouchableOpacity 
+          style={[styles.controlButton, queue.length === 0 && styles.controlButtonDisabled]}
+          onPress={playNext}
+          disabled={queue.length === 0}
+        >
+          <Ionicons name="play-skip-forward" size={28} color="#ff206e" />
+        </TouchableOpacity>
+
+        {/* Botón Avanzar 10s */}
+        <TouchableOpacity 
+          style={[styles.controlButton, !isLoaded && styles.controlButtonDisabled]}
+          onPress={handleSeekForward}
+          disabled={!isLoaded}
+        >
+          <Ionicons name="play-forward" size={24} color="#ff206e" />
+        </TouchableOpacity>
+      </View>
+
+      {/* Modo de reproducción */}
+      <View style={styles.playbackModeContainer}>
+        <TouchableOpacity 
+          style={styles.modeButton}
+          onPress={cyclePlaybackMode}
+        >
+          <Ionicons 
+            name={
+              playbackMode === PlaybackMode.REPEAT_ONE ? "repeat" :
+              playbackMode === PlaybackMode.REPEAT_ALL ? "repeat" :
+              playbackMode === PlaybackMode.SHUFFLE ? "shuffle" :
+              "arrow-forward"
+            }
+            size={20} 
+            color="#ff206e" 
+          />
+          <Text style={styles.modeText}>{getPlaybackModeText()}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -216,10 +337,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  backIcon: {
-    fontSize: 24,
-    color: '#2C2C2C',
-  },
   headerStatus: {
     fontSize: 12,
     color: '#888',
@@ -231,8 +348,8 @@ const styles = StyleSheet.create({
   },
   visualContainer: {
     alignItems: 'center',
-    marginTop: spacing.xxl * 2,
-    marginBottom: spacing.xxl,
+    marginTop: spacing.xl,
+    marginBottom: spacing.lg,
   },
   headphoneFrame: {
     width: 240,
@@ -279,9 +396,6 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     elevation: 4,
   },
-  speakerIcon: {
-    fontSize: 18,
-  },
   speakerText: {
     fontSize: 16,
     fontWeight: '600',
@@ -290,7 +404,7 @@ const styles = StyleSheet.create({
   infoContainer: {
     alignItems: 'center',
     paddingHorizontal: spacing.xl,
-    marginTop: spacing.xxl,
+    marginTop: spacing.md,
   },
   title: {
     fontSize: 28,
@@ -320,7 +434,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: spacing.xl,
-    marginTop: spacing.xxl,
+    marginTop: spacing.lg,
     gap: spacing.md,
   },
   timeText: {
@@ -337,7 +451,7 @@ const styles = StyleSheet.create({
   },
   progressFill: {
     height: '100%',
-    backgroundColor: palette.primary,
+    backgroundColor: '#ff206e',
     borderRadius: 3,
   },
   progressThumb: {
@@ -346,7 +460,7 @@ const styles = StyleSheet.create({
     width: 16,
     height: 16,
     borderRadius: 8,
-    backgroundColor: palette.primary,
+    backgroundColor: '#ff206e',
     marginLeft: -8,
   },
   errorContainer: {
@@ -357,65 +471,79 @@ const styles = StyleSheet.create({
     color: palette.error,
     fontSize: 14,
   },
-  controlsContainer: {
+  queueInfo: {
+    alignItems: 'center',
+    paddingVertical: spacing.sm,
+    backgroundColor: '#FFFFFF',
+  },
+  queueText: {
+    fontSize: 13,
+    color: '#888',
+    fontWeight: '500',
+  },
+  allControlsContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: spacing.xxl * 2,
-    gap: spacing.xl,
+    marginTop: spacing.xl,
+    gap: spacing.md,
+    paddingHorizontal: spacing.lg,
   },
-  stopButton: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
+  controlButton: {
+    width: 56,
+    height: 56,
+    borderRadius: 28,
     backgroundColor: '#FFFFFF',
-    borderWidth: 2,
-    borderColor: '#E0E0E0',
     justifyContent: 'center',
     alignItems: 'center',
+    shadowColor: '#ff206e',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
-  stopIcon: {
-    fontSize: 24,
-    color: '#666',
+  controlButtonDisabled: {
+    opacity: 0.3,
   },
   playButton: {
-    width: 96,
-    height: 96,
-    borderRadius: 48,
-    backgroundColor: palette.primary,
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    backgroundColor: '#ff206e',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
+    shadowColor: '#ff206e',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.3,
     shadowRadius: 12,
-    elevation: 8,
+    elevation: 10,
   },
   playButtonDisabled: {
     opacity: 0.5,
   },
-  playIcon: {
-    fontSize: 40,
-    color: '#FFFFFF',
-    marginLeft: 4,
-  },
-  loopButton: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    backgroundColor: '#FFFFFF',
-    borderWidth: 2,
-    borderColor: '#E0E0E0',
-    justifyContent: 'center',
+  playbackModeContainer: {
     alignItems: 'center',
+    marginTop: spacing.lg,
   },
-  loopIcon: {
-    fontSize: 20,
-    marginBottom: 2,
+  modeButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: spacing.xs,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.sm,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: '#ff206e',
+    shadowColor: '#ff206e',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 2,
   },
-  loopText: {
-    fontSize: 10,
-    fontWeight: '600',
-    color: '#999',
+  modeText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#ff206e',
   },
 });

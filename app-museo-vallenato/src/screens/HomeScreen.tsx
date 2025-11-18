@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, TextInput, StyleSheet, Image, useWindowDimensions } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import bundledLibrary from '../../assets/data/library.json';
 import { palette, typography, spacing } from '../theme';
 import { Track, Genre } from '../types';
@@ -116,9 +117,18 @@ export default function HomeScreen({ navigation }: any) {
     <View style={styles.container}>
       {/* Header */}
       <View style={styles.header}>
-        <View style={styles.headerIcon}>
-          <Text style={styles.headerIconText}>♪</Text>
-        </View>
+        {/* Patrón decorativo de fondo */}
+        <Image 
+          source={require('../../assets/figuras.png')}
+          style={styles.headerPattern}
+          resizeMode="cover"
+        />
+        
+        <Image 
+          source={require('../../assets/logo.png')}
+          style={styles.headerLogo}
+          resizeMode="contain"
+        />
         <View style={styles.headerText}>
           <Text style={styles.headerTitle}>Archivo de Audio CCMV</Text>
           <Text style={styles.headerSubtitle}>Centro Cultural de la Música Vallenata</Text>
@@ -128,7 +138,7 @@ export default function HomeScreen({ navigation }: any) {
 
       {/* Barra de búsqueda */}
       <View style={styles.searchContainer}>
-        <Text style={styles.searchIcon}>🔍</Text>
+        <Ionicons name="search" size={20} color="#ff206e" style={styles.searchIcon} />
         <TextInput
           style={styles.searchInput}
           placeholder="Buscar por título, artista o género..."
@@ -144,22 +154,42 @@ export default function HomeScreen({ navigation }: any) {
           style={[styles.filterButton, selectedGenre === 'Todos' && styles.filterButtonActive]}
           onPress={() => setSelectedGenre('Todos')}
         >
+          <Ionicons 
+            name="apps" 
+            size={16} 
+            color={selectedGenre === 'Todos' ? '#FFFFFF' : '#ff206e'} 
+            style={{ marginRight: 6 }}
+          />
           <Text style={[styles.filterText, selectedGenre === 'Todos' && styles.filterTextActive]}>
             Todos
           </Text>
         </TouchableOpacity>
 
-        {genres.map(genre => (
-          <TouchableOpacity 
-            key={genre}
-            style={[styles.filterButton, selectedGenre === genre && styles.filterButtonActive]}
-            onPress={() => setSelectedGenre(genre)}
-          >
-            <Text style={[styles.filterText, selectedGenre === genre && styles.filterTextActive]}>
-              {genre === 'Son' ? 'Son' : genre}
-            </Text>
-          </TouchableOpacity>
-        ))}
+        {genres.map(genre => {
+          const iconName = 
+            genre === 'Merengue' ? 'musical-note' :
+            genre === 'Paseo' ? 'musical-notes' :
+            genre === 'Puya' ? 'pulse' :
+            'disc';
+          
+          return (
+            <TouchableOpacity 
+              key={genre}
+              style={[styles.filterButton, selectedGenre === genre && styles.filterButtonActive]}
+              onPress={() => setSelectedGenre(genre)}
+            >
+              <Ionicons 
+                name={iconName as any} 
+                size={16} 
+                color={selectedGenre === genre ? '#FFFFFF' : '#ff206e'} 
+                style={{ marginRight: 6 }}
+              />
+              <Text style={[styles.filterText, selectedGenre === genre && styles.filterTextActive]}>
+                {genre === 'Son' ? 'Son' : genre}
+              </Text>
+            </TouchableOpacity>
+          );
+        })}
       </View>
 
       {/* Grid de tarjetas */}
@@ -190,7 +220,7 @@ export default function HomeScreen({ navigation }: any) {
               />
             ) : (
               <View style={styles.miniCoverPlaceholder}>
-                <Text style={styles.miniCoverIcon}>♪</Text>
+                <Ionicons name="musical-note" size={24} color="#ff206e" />
               </View>
             )}
             
@@ -216,7 +246,12 @@ export default function HomeScreen({ navigation }: any) {
                 togglePlayPause();
               }}
             >
-              <Text style={styles.miniPlayIcon}>{isPlaying ? '⏸' : '▶'}</Text>
+              <Ionicons 
+                name={isPlaying ? "pause" : "play"} 
+                size={24} 
+                color="#FFFFFF" 
+                style={{ marginLeft: isPlaying ? 0 : 2 }}
+              />
             </TouchableOpacity>
           </TouchableOpacity>
           
@@ -233,7 +268,7 @@ export default function HomeScreen({ navigation }: any) {
         onPress={() => navigation.navigate('Sync')}
         activeOpacity={0.8}
       >
-        <Text style={styles.syncFabIcon}>⚙️</Text>
+        <Ionicons name="settings" size={28} color="#FFFFFF" />
       </TouchableOpacity>
     </View>
   );
@@ -245,7 +280,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FAFAFA',
   },
   header: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#ff206e',
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.xl + 10,
     paddingBottom: spacing.lg,
@@ -257,6 +292,22 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.05,
     shadowRadius: 4,
     elevation: 2,
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  headerPattern: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: 180,
+    opacity: 0.8,
+  },
+  headerLogo: {
+    width: 50,
+    height: 50,
+    zIndex: 1,
+    marginLeft: spacing.sm,
   },
   headerIcon: {
     width: 56,
@@ -272,21 +323,23 @@ const styles = StyleSheet.create({
   },
   headerText: {
     flex: 1,
+    zIndex: 1,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: '600',
-    color: '#2C2C2C',
+    color: '#FFFFFF',
     marginBottom: 2,
   },
   headerSubtitle: {
     fontSize: 12,
-    color: '#888',
+    color: 'rgba(255, 255, 255, 0.9)',
   },
   audioCount: {
     fontSize: 14,
     fontWeight: '600',
-    color: palette.primary,
+    color: '#FFFFFF',
+    zIndex: 1,
   },
   searchContainer: {
     flexDirection: 'row',
@@ -298,11 +351,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
     borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderWidth: 2,
+    borderColor: '#ff206e',
+    shadowColor: '#ff206e',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.08,
+    shadowRadius: 4,
+    elevation: 2,
   },
   searchIcon: {
-    fontSize: 20,
     marginRight: spacing.sm,
   },
   searchInput: {
@@ -315,23 +372,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     gap: spacing.sm,
     marginBottom: spacing.md,
+    flexWrap: 'wrap',
   },
   filterButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm - 2,
+    paddingVertical: spacing.sm,
     borderRadius: 20,
     backgroundColor: '#FFFFFF',
-    borderWidth: 1,
-    borderColor: '#E0E0E0',
+    borderWidth: 2,
+    borderColor: '#ff206e',
   },
   filterButtonActive: {
-    backgroundColor: palette.primary,
-    borderColor: palette.primary,
+    backgroundColor: '#ff206e',
+    borderColor: '#ff206e',
   },
   filterText: {
     fontSize: 13,
-    fontWeight: '500',
-    color: '#666',
+    fontWeight: '600',
+    color: '#ff206e',
   },
   filterTextActive: {
     color: '#FFFFFF',
@@ -416,9 +476,9 @@ const styles = StyleSheet.create({
   miniPlayer: {
     position: 'absolute',
     bottom: spacing.xl + 80,
-    right: spacing.lg,
+    left: spacing.lg,
     width: 380,
-    backgroundColor: 'rgba(247, 127, 0, 0.95)',
+    backgroundColor: 'rgba(255, 32, 110, 0.95)',
     borderRadius: 16,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
@@ -446,10 +506,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.3)',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  miniCoverIcon: {
-    fontSize: 20,
-    color: '#FFFFFF',
   },
   miniPlayerInfo: {
     flex: 1,
@@ -487,11 +543,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  miniPlayIcon: {
-    fontSize: 16,
-    color: '#FFFFFF',
-    marginLeft: 1,
-  },
   miniProgressBar: {
     height: 3,
     backgroundColor: 'rgba(255, 255, 255, 0.2)',
@@ -507,7 +558,7 @@ const styles = StyleSheet.create({
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: palette.primary,
+    backgroundColor: '#ff206e',
     justifyContent: 'center',
     alignItems: 'center',
     shadowColor: '#000',
@@ -515,8 +566,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 8,
     elevation: 8,
-  },
-  syncFabIcon: {
-    fontSize: 28,
   },
 });

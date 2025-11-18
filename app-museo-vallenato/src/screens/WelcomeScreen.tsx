@@ -14,10 +14,20 @@ interface WelcomeScreenProps {
 export default function WelcomeScreen({ navigation }: WelcomeScreenProps) {
   return (
     <View style={styles.container}>
+      {/* Patrón decorativo de fondo */}
+      <Image 
+        source={require('../../assets/figuras.png')}
+        style={styles.backgroundPattern}
+        resizeMode="cover"
+      />
+      
       {/* Logo CCMV */}
       <View style={styles.logoContainer}>
-        <Text style={styles.logoText}>CCMV</Text>
-        <Text style={styles.logoSubtext}>MUSEO DEL VALLENATO</Text>
+        <Image 
+          source={require('../../assets/logo.png')}
+          style={styles.logoImage}
+          resizeMode="contain"
+        />
       </View>
 
       {/* Título principal */}
@@ -50,14 +60,27 @@ export default function WelcomeScreen({ navigation }: WelcomeScreenProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#ff206e',
     alignItems: 'center',
     justifyContent: 'center',
     padding: spacing.xl,
   },
+  backgroundPattern: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: '100%',
+    height: '100%',
+    opacity: 0.8,
+  },
   logoContainer: {
     alignItems: 'center',
     marginBottom: spacing.xxl * 2,
+  },
+  logoImage: {
+    width: 320,
+    height: 320,
   },
   logoText: {
     fontSize: 72,
@@ -75,19 +98,19 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 42,
     fontWeight: '600',
-    color: '#2C2C2C',
+    color: '#FFFFFF',
     marginBottom: spacing.md,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 18,
-    color: '#888',
+    color: '#FFFFFF',
     marginBottom: spacing.xxl * 2,
     textAlign: 'center',
     maxWidth: 500,
   },
   mainButton: {
-    backgroundColor: palette.primary,
+    backgroundColor: '#FFFFFF',
     paddingVertical: spacing.lg + 8,
     paddingHorizontal: spacing.xxl * 2,
     borderRadius: 16,
@@ -102,25 +125,25 @@ const styles = StyleSheet.create({
   },
   buttonIcon: {
     fontSize: 28,
-    color: '#FFFFFF',
+    color: '#ff206e',
   },
   buttonText: {
     fontSize: 24,
     fontWeight: '600',
-    color: '#FFFFFF',
+    color: '#ff206e',
   },
   footer: {
     position: 'absolute',
     bottom: spacing.xl + 20,
     fontSize: 12,
-    color: '#AAA',
+    color: '#FFFFFF',
     textAlign: 'center',
   },
   hint: {
     position: 'absolute',
     bottom: spacing.lg,
     fontSize: 14,
-    color: '#CCC',
+    color: '#FFFFFF',
     fontStyle: 'italic',
   },
 });
