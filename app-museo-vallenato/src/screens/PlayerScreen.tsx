@@ -4,7 +4,8 @@
  */
 
 import React, { useEffect, useState, useRef } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Animated, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Animated, Image, ImageBackground } from 'react-native';
+import { BlurView } from 'expo-blur';
 import { Ionicons } from '@expo/vector-icons';
 import { Audio } from 'expo-av';
 import bundledLibrary from '../../assets/data/library.json';
@@ -158,146 +159,164 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
 
   return (
     <View style={styles.container}>
-      {/* Header con botón volver */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-          <Ionicons name="arrow-back" size={24} color="#2C2C2C" />
-        </TouchableOpacity>
-        <View>
-          <Text style={styles.headerStatus}>{isPlaying && currentTrack?.id === trackId ? 'Reproduciendo' : 'Detenido'}</Text>
-          <Text style={styles.headerTitle}>Reproductor de Audio</Text>
-        </View>
-      </View>
-
-      {/* Información de cola */}
-      {queue.length > 0 && (
-        <View style={styles.queueInfo}>
-          <Text style={styles.queueText}>
-            Pista {currentIndex + 1} de {queue.length}
-          </Text>
-        </View>
+      {/* Fondo desenfocado con imagen de carátula */}
+      {coverByTrackMap[track.id] ? (
+        <>
+          <ImageBackground 
+            source={coverByTrackMap[track.id]} 
+            style={styles.backgroundImage}
+            resizeMode="cover"
+            blurRadius={0}
+          />
+          <BlurView intensity={95} tint="dark" style={styles.blurOverlay} />
+          <View style={styles.gradientOverlay} />
+        </>
+      ) : (
+        <View style={styles.defaultBackground} />
       )}
 
-      {/* Carátula del álbum o icono de auriculares */}
-      <View style={styles.visualContainer}>
-        <Animated.View style={[styles.headphoneFrame, { transform: [{ scale: pulseAnim }] }]}>
-          {coverByTrackMap[track.id] ? (
-            <Image 
-              source={coverByTrackMap[track.id]} 
-              style={styles.coverImage}
-              resizeMode="cover"
+      {/* Contenido sobre el fondo */}
+      <View style={styles.contentContainer}>
+        {/* Header con botón volver */}
+        <View style={styles.header}>
+          <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
+            <Ionicons name="arrow-back" size={24} color="#FFFFFF" />
+          </TouchableOpacity>
+          <View>
+            <Text style={styles.headerStatus}>{isPlaying && currentTrack?.id === trackId ? 'Reproduciendo' : 'Detenido'}</Text>
+            <Text style={styles.headerTitle}>Reproductor de Audio</Text>
+          </View>
+        </View>
+
+        {/* Información de cola */}
+        {queue.length > 0 && (
+          <View style={styles.queueInfo}>
+            <Text style={styles.queueText}>
+              Pista {currentIndex + 1} de {queue.length}
+            </Text>
+          </View>
+        )}
+
+        {/* Carátula del álbum GRANDE */}
+        <View style={styles.visualContainer}>
+          <Animated.View style={[styles.coverContainer, { transform: [{ scale: pulseAnim }] }]}>
+            {coverByTrackMap[track.id] ? (
+              <Image 
+                source={coverByTrackMap[track.id]} 
+                style={styles.coverImage}
+                resizeMode="cover"
+              />
+            ) : (
+              <View style={styles.coverPlaceholder}>
+                <Ionicons name="musical-note" size={120} color="#ff206e" />
+              </View>
+            )}
+          </Animated.View>
+
+          {/* Botón altavoz/principal */}
+          <TouchableOpacity 
+            style={styles.speakerButton}
+            onPress={() => setIsSpeakerMode(!isSpeakerMode)}
+            activeOpacity={0.7}
+          >
+            <Ionicons 
+              name={isSpeakerMode ? "volume-high" : "volume-medium"} 
+              size={20} 
+              color="#FFFFFF" 
             />
-          ) : (
-            <View style={styles.headphoneIcon}>
-              <Text style={styles.headphoneText}>🎧</Text>
-            </View>
-          )}
-        </Animated.View>
-
-        {/* Botón altavoz/principal */}
-        <TouchableOpacity 
-          style={styles.speakerButton}
-          onPress={() => setIsSpeakerMode(!isSpeakerMode)}
-          activeOpacity={0.7}
-        >
-          <Ionicons 
-            name={isSpeakerMode ? "volume-high" : "volume-medium"} 
-            size={20} 
-            color="#FFFFFF" 
-          />
-          <Text style={styles.speakerText}>
-            {isSpeakerMode ? 'Principal' : 'Altavoz'}
-          </Text>
-        </TouchableOpacity>
-      </View>
-
-      {/* Info del track */}
-      <View style={styles.infoContainer}>
-        <Text style={styles.title}>{track.title}</Text>
-        <View style={styles.metaRow}>
-          <Text style={styles.category}>{track.genre}</Text>
-          <Text style={styles.separator}>|</Text>
-          <Text style={styles.description}>{track.artist}</Text>
+            <Text style={styles.speakerText}>
+              {isSpeakerMode ? 'Principal' : 'Altavoz'}
+            </Text>
+          </TouchableOpacity>
         </View>
-      </View>
 
-      {/* Barra de progreso */}
-      <View style={styles.progressContainer}>
-        <Text style={styles.timeText}>{formatTime(position)}</Text>
-        <View style={styles.progressBar}>
-          <View style={[styles.progressFill, { width: `${progress * 100}%` }]} />
-          <View style={[styles.progressThumb, { left: `${progress * 100}%` }]} />
+        {/* Info del track */}
+        <View style={styles.infoContainer}>
+          <Text style={styles.title} numberOfLines={2}>{track.title}</Text>
+          <View style={styles.metaRow}>
+            <Text style={styles.category}>{track.genre}</Text>
+            <Text style={styles.separator}>•</Text>
+            <Text style={styles.description} numberOfLines={1}>{track.artist}</Text>
+          </View>
         </View>
-        <Text style={styles.timeText}>{formatTime(duration)}</Text>
-      </View>
 
-      {/* Mensaje de error */}
-      {error && (
-        <View style={styles.errorContainer}>
-          <Text style={styles.errorText}>{error}</Text>
+        {/* Barra de progreso */}
+        <View style={styles.progressContainer}>
+          <Text style={styles.timeText}>{formatTime(position)}</Text>
+          <View style={styles.progressBar}>
+            <View style={[styles.progressFill, { width: `${progress * 100}%` }]} />
+            <View style={[styles.progressThumb, { left: `${progress * 100}%` }]} />
+          </View>
+          <Text style={styles.timeText}>{formatTime(duration)}</Text>
         </View>
-      )}
 
-      {/* Controles unificados en una fila */}
-      <View style={styles.allControlsContainer}>
-        {/* Botón Retroceder 10s */}
-        <TouchableOpacity 
-          style={[styles.controlButton, !isLoaded && styles.controlButtonDisabled]}
-          onPress={handleSeekBackward}
-          disabled={!isLoaded}
-        >
-          <Ionicons name="play-back" size={24} color="#ff206e" />
-        </TouchableOpacity>
+        {/* Mensaje de error */}
+        {error && (
+          <View style={styles.errorContainer}>
+            <Text style={styles.errorText}>{error}</Text>
+          </View>
+        )}
 
-        {/* Botón Anterior */}
-        <TouchableOpacity 
-          style={[styles.controlButton, queue.length === 0 && styles.controlButtonDisabled]}
-          onPress={playPrevious}
-          disabled={queue.length === 0}
-        >
-          <Ionicons name="play-skip-back" size={28} color="#ff206e" />
-        </TouchableOpacity>
+        {/* Controles unificados en una fila */}
+        <View style={styles.allControlsContainer}>
+          {/* Botón Retroceder 10s */}
+          <TouchableOpacity 
+            style={[styles.controlButton, !isLoaded && styles.controlButtonDisabled]}
+            onPress={handleSeekBackward}
+            disabled={!isLoaded}
+          >
+            <Ionicons name="play-back" size={24} color="#ff206e" />
+          </TouchableOpacity>
 
-        {/* Botón de play principal (grande) */}
-        <TouchableOpacity 
-          onPress={togglePlayPause} 
-          style={[styles.playButton, !isLoaded && styles.playButtonDisabled]}
-          disabled={!isLoaded}
-          activeOpacity={0.8}
-        >
-          <Ionicons 
-            name={isPlaying && currentTrack?.id === trackId ? "pause" : "play"} 
-            size={48} 
-            color="#FFFFFF" 
-            style={{ marginLeft: isPlaying ? 0 : 4 }}
-          />
-        </TouchableOpacity>
+          {/* Botón Anterior */}
+          <TouchableOpacity 
+            style={[styles.controlButton, queue.length === 0 && styles.controlButtonDisabled]}
+            onPress={playPrevious}
+            disabled={queue.length === 0}
+          >
+            <Ionicons name="play-skip-back" size={28} color="#ff206e" />
+          </TouchableOpacity>
 
-        {/* Botón Siguiente */}
-        <TouchableOpacity 
-          style={[styles.controlButton, queue.length === 0 && styles.controlButtonDisabled]}
-          onPress={playNext}
-          disabled={queue.length === 0}
-        >
-          <Ionicons name="play-skip-forward" size={28} color="#ff206e" />
-        </TouchableOpacity>
+          {/* Botón de play principal (grande) */}
+          <TouchableOpacity 
+            onPress={togglePlayPause} 
+            style={[styles.playButton, !isLoaded && styles.playButtonDisabled]}
+            disabled={!isLoaded}
+            activeOpacity={0.8}
+          >
+            <Ionicons 
+              name={isPlaying && currentTrack?.id === trackId ? "pause" : "play"} 
+              size={48} 
+              color="#FFFFFF" 
+              style={{ marginLeft: isPlaying ? 0 : 4 }}
+            />
+          </TouchableOpacity>
 
-        {/* Botón Avanzar 10s */}
-        <TouchableOpacity 
-          style={[styles.controlButton, !isLoaded && styles.controlButtonDisabled]}
-          onPress={handleSeekForward}
-          disabled={!isLoaded}
-        >
-          <Ionicons name="play-forward" size={24} color="#ff206e" />
-        </TouchableOpacity>
-      </View>
+          {/* Botón Siguiente */}
+          <TouchableOpacity 
+            style={[styles.controlButton, queue.length === 0 && styles.controlButtonDisabled]}
+            onPress={playNext}
+            disabled={queue.length === 0}
+          >
+            <Ionicons name="play-skip-forward" size={28} color="#ff206e" />
+          </TouchableOpacity>
 
-      {/* Modo de reproducción */}
-      <View style={styles.playbackModeContainer}>
-        <TouchableOpacity 
-          style={styles.modeButton}
-          onPress={cyclePlaybackMode}
-        >
+          {/* Botón Avanzar 10s */}
+          <TouchableOpacity 
+            style={[styles.controlButton, !isLoaded && styles.controlButtonDisabled]}
+            onPress={handleSeekForward}
+            disabled={!isLoaded}
+          >
+            <Ionicons name="play-forward" size={24} color="#ff206e" />
+          </TouchableOpacity>
+        </View>
+
+        {/* Modo de reproducción */}
+        <View style={styles.playbackModeContainer}>
+          <TouchableOpacity 
+            style={styles.modeButton}
+            onPress={cyclePlaybackMode}
+          >
           <Ionicons 
             name={
               playbackMode === PlaybackMode.REPEAT_ONE ? "repeat" :
@@ -311,6 +330,7 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
           <Text style={styles.modeText}>{getPlaybackModeText()}</Text>
         </TouchableOpacity>
       </View>
+      </View>
     </View>
   );
 }
@@ -318,7 +338,33 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#000000',
+  },
+  backgroundImage: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+  },
+  blurOverlay: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+  },
+  gradientOverlay: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(0, 0, 0, 0.4)',
+  },
+  defaultBackground: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
     backgroundColor: palette.background,
+  },
+  contentContainer: {
+    flex: 1,
+    zIndex: 1,
   },
   header: {
     flexDirection: 'row',
@@ -326,59 +372,52 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.xl + 10,
     paddingBottom: spacing.lg,
-    backgroundColor: palette.surface,
+    backgroundColor: 'transparent',
     gap: spacing.md,
   },
   backButton: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: palette.surfaceElevated,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
     justifyContent: 'center',
     alignItems: 'center',
   },
   headerStatus: {
     fontSize: 12,
-    color: palette.textSecondary,
+    color: 'rgba(255, 255, 255, 0.7)',
   },
   headerTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: palette.textPrimary,
+    color: '#FFFFFF',
   },
   visualContainer: {
     alignItems: 'center',
-    marginTop: spacing.xl,
-    marginBottom: spacing.lg,
+    marginTop: spacing.lg,
+    marginBottom: spacing.xl,
   },
-  headphoneFrame: {
-    width: 240,
-    height: 240,
-    borderRadius: 24,
-    borderWidth: 6,
-    borderColor: '#ff206e',
-    backgroundColor: palette.surface,
-    justifyContent: 'center',
-    alignItems: 'center',
-    shadowColor: '#ff206e',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 12,
-    elevation: 6,
-  },
-  headphoneIcon: {
-    width: 180,
-    height: 180,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  headphoneText: {
-    fontSize: 120,
+  coverContainer: {
+    width: 340,
+    height: 340,
+    borderRadius: 20,
+    overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.6,
+    shadowRadius: 24,
+    elevation: 12,
   },
   coverImage: {
-    width: 180,
-    height: 180,
-    borderRadius: 16,
+    width: '100%',
+    height: '100%',
+  },
+  coverPlaceholder: {
+    width: '100%',
+    height: '100%',
+    backgroundColor: 'rgba(255, 32, 110, 0.15)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   speakerButton: {
     position: 'absolute',
@@ -404,12 +443,13 @@ const styles = StyleSheet.create({
   infoContainer: {
     alignItems: 'center',
     paddingHorizontal: spacing.xl,
-    marginTop: spacing.md,
+    marginTop: spacing.xl,
+    marginBottom: spacing.md,
   },
   title: {
-    fontSize: 28,
+    fontSize: 32,
     fontWeight: '700',
-    color: palette.textPrimary,
+    color: '#FFFFFF',
     textAlign: 'center',
     marginBottom: spacing.sm,
   },
@@ -420,15 +460,15 @@ const styles = StyleSheet.create({
   },
   category: {
     fontSize: 16,
-    color: palette.textSecondary,
+    color: 'rgba(255, 255, 255, 0.7)',
   },
   separator: {
     fontSize: 16,
-    color: palette.border,
+    color: 'rgba(255, 255, 255, 0.4)',
   },
   description: {
     fontSize: 16,
-    color: palette.textSecondary,
+    color: 'rgba(255, 255, 255, 0.7)',
   },
   progressContainer: {
     flexDirection: 'row',
@@ -439,13 +479,14 @@ const styles = StyleSheet.create({
   },
   timeText: {
     fontSize: 14,
-    color: palette.textSecondary,
+    color: 'rgba(255, 255, 255, 0.7)',
     width: 45,
+    fontWeight: '500',
   },
   progressBar: {
     flex: 1,
     height: 6,
-    backgroundColor: palette.border,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
     borderRadius: 3,
     position: 'relative',
   },
@@ -474,11 +515,11 @@ const styles = StyleSheet.create({
   queueInfo: {
     alignItems: 'center',
     paddingVertical: spacing.sm,
-    backgroundColor: palette.surface,
+    backgroundColor: 'transparent',
   },
   queueText: {
     fontSize: 13,
-    color: palette.textSecondary,
+    color: 'rgba(255, 255, 255, 0.6)',
     fontWeight: '500',
   },
   allControlsContainer: {
@@ -493,12 +534,12 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: palette.surface,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#ff206e',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 2,
   },
@@ -531,13 +572,13 @@ const styles = StyleSheet.create({
     gap: spacing.xs,
     paddingHorizontal: spacing.lg,
     paddingVertical: spacing.sm,
-    backgroundColor: palette.surface,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
     borderRadius: 20,
     borderWidth: 2,
     borderColor: '#ff206e',
-    shadowColor: '#ff206e',
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.3,
     shadowRadius: 4,
     elevation: 2,
   },

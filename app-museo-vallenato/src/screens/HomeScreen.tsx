@@ -30,11 +30,12 @@ export default function HomeScreen({ navigation }: any) {
   const [items, setItems] = useState<Track[]>(bundledLibrary.items as Track[]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGenre, setSelectedGenre] = useState<Genre | 'Todos'>('Todos');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const { width } = useWindowDimensions();
   const { currentTrack, isPlaying, togglePlayPause, playTrack, position, duration } = useAudio();
   
-  // Determinar número de columnas según el ancho de la pantalla
-  const numColumns = width >= 768 ? 4 : 2;
+  // Determinar número de columnas según el ancho de la pantalla y modo de vista
+  const numColumns = viewMode === 'list' ? 1 : (width >= 768 ? 4 : 2);
 
   const handleTrackPress = async (track: Track) => {
     await playTrack(track);
@@ -104,6 +105,51 @@ export default function HomeScreen({ navigation }: any) {
     // Obtener la imagen de carátula usando el trackId
     const coverSource = coverByTrackMap[item.id] || null;
 
+    // Vista de lista (horizontal completa)
+    if (viewMode === 'list') {
+      return (
+        <TouchableOpacity 
+          style={styles.listItem}
+          onPress={() => handleTrackPress(item)}
+          activeOpacity={0.7}
+        >
+          {/* Carátula pequeña */}
+          {coverSource ? (
+            <Image 
+              source={coverSource} 
+              style={styles.listThumbnail}
+              resizeMode="cover"
+            />
+          ) : (
+            <View style={[styles.listIconContainer, { backgroundColor: bgColor }]}>
+              <Text style={styles.listIconText}>{icon}</Text>
+            </View>
+          )}
+          
+          {/* Información */}
+          <View style={styles.listContent}>
+            <Text style={styles.listTitle} numberOfLines={1}>{item.title}</Text>
+            <View style={styles.listMeta}>
+              <Text style={styles.listArtist} numberOfLines={1}>{item.artist}</Text>
+              <Text style={styles.listDot}>•</Text>
+              <Text style={styles.listGenre}>{item.genre === 'Son' ? 'Son' : item.genre}</Text>
+            </View>
+          </View>
+
+          {/* Duración */}
+          {item.duration && (
+            <Text style={styles.listDuration}>{item.duration}</Text>
+          )}
+
+          {/* Icono de play */}
+          <View style={styles.listPlayIcon}>
+            <Ionicons name="play-circle-outline" size={28} color="#ff206e" />
+          </View>
+        </TouchableOpacity>
+      );
+    }
+
+    // Vista de grid (tarjetas)
     return (
       <TouchableOpacity 
         style={styles.card}
@@ -175,58 +221,76 @@ export default function HomeScreen({ navigation }: any) {
         />
       </View>
 
-      {/* Filtros de género */}
-      <View style={styles.filterContainer}>
-        <TouchableOpacity 
-          style={[styles.filterButton, selectedGenre === 'Todos' && styles.filterButtonActive]}
-          onPress={() => setSelectedGenre('Todos')}
-        >
-          <Ionicons 
-            name="apps" 
-            size={16} 
-            color={selectedGenre === 'Todos' ? '#FFFFFF' : '#ff206e'} 
-            style={{ marginRight: 6 }}
-          />
-          <Text style={[styles.filterText, selectedGenre === 'Todos' && styles.filterTextActive]}>
-            Todos
-          </Text>
-        </TouchableOpacity>
+      {/* Filtros de género y toggle de vista */}
+      <View style={styles.filterRow}>
+        <View style={styles.filterContainer}>
+          <TouchableOpacity 
+            style={[styles.filterButton, selectedGenre === 'Todos' && styles.filterButtonActive]}
+            onPress={() => setSelectedGenre('Todos')}
+          >
+            <Ionicons 
+              name="apps" 
+              size={16} 
+              color={selectedGenre === 'Todos' ? '#FFFFFF' : '#ff206e'} 
+              style={{ marginRight: 6 }}
+            />
+            <Text style={[styles.filterText, selectedGenre === 'Todos' && styles.filterTextActive]}>
+              Todos
+            </Text>
+          </TouchableOpacity>
 
-        {genres.map(genre => {
-          const iconName = 
-            genre === 'Merengue' ? 'musical-note' :
-            genre === 'Paseo' ? 'musical-notes' :
-            genre === 'Puya' ? 'pulse' :
-            'disc';
-          
-          return (
-            <TouchableOpacity 
-              key={genre}
-              style={[styles.filterButton, selectedGenre === genre && styles.filterButtonActive]}
-              onPress={() => setSelectedGenre(genre)}
-            >
-              <Ionicons 
-                name={iconName as any} 
-                size={16} 
-                color={selectedGenre === genre ? '#FFFFFF' : '#ff206e'} 
-                style={{ marginRight: 6 }}
-              />
-              <Text style={[styles.filterText, selectedGenre === genre && styles.filterTextActive]}>
-                {genre === 'Son' ? 'Son' : genre}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
+          {genres.map(genre => {
+            const iconName = 
+              genre === 'Merengue' ? 'musical-note' :
+              genre === 'Paseo' ? 'musical-notes' :
+              genre === 'Puya' ? 'pulse' :
+              'disc';
+            
+            return (
+              <TouchableOpacity 
+                key={genre}
+                style={[styles.filterButton, selectedGenre === genre && styles.filterButtonActive]}
+                onPress={() => setSelectedGenre(genre)}
+              >
+                <Ionicons 
+                  name={iconName as any} 
+                  size={16} 
+                  color={selectedGenre === genre ? '#FFFFFF' : '#ff206e'} 
+                  style={{ marginRight: 6 }}
+                />
+                <Text style={[styles.filterText, selectedGenre === genre && styles.filterTextActive]}>
+                  {genre === 'Son' ? 'Son' : genre}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+
+        {/* Toggle de vista */}
+        <View style={styles.viewToggle}>
+          <TouchableOpacity 
+            style={[styles.viewButton, viewMode === 'list' && styles.viewButtonActive]}
+            onPress={() => setViewMode('list')}
+          >
+            <Ionicons name="list" size={20} color={viewMode === 'list' ? '#FFFFFF' : '#ff206e'} />
+          </TouchableOpacity>
+          <TouchableOpacity 
+            style={[styles.viewButton, viewMode === 'grid' && styles.viewButtonActive]}
+            onPress={() => setViewMode('grid')}
+          >
+            <Ionicons name="grid" size={20} color={viewMode === 'grid' ? '#FFFFFF' : '#ff206e'} />
+          </TouchableOpacity>
+        </View>
       </View>
 
-      {/* Grid de tarjetas */}
+      {/* Lista de canciones */}
       <FlatList
         data={filteredItems}
         keyExtractor={t => t.id}
         renderItem={renderTrackCard}
-        key={numColumns}
-        numColumns={numColumns}
-        columnWrapperStyle={styles.row}
+        key={`${viewMode}-${numColumns}`}
+        numColumns={viewMode === 'list' ? 1 : numColumns}
+        columnWrapperStyle={viewMode === 'grid' ? styles.row : null}
         contentContainerStyle={styles.listContent}
         showsVerticalScrollIndicator={false}
       />
@@ -394,12 +458,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: palette.textPrimary,
   },
+  filterRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: spacing.lg,
+    marginBottom: spacing.md,
+  },
   filterContainer: {
     flexDirection: 'row',
-    paddingHorizontal: spacing.lg,
     gap: spacing.sm,
-    marginBottom: spacing.md,
     flexWrap: 'wrap',
+    flex: 1,
   },
   filterButton: {
     flexDirection: 'row',
@@ -422,6 +492,24 @@ const styles = StyleSheet.create({
   },
   filterTextActive: {
     color: '#FFFFFF',
+  },
+  viewToggle: {
+    flexDirection: 'row',
+    backgroundColor: palette.surface,
+    borderRadius: 8,
+    borderWidth: 2,
+    borderColor: '#ff206e',
+    overflow: 'hidden',
+    marginLeft: spacing.sm,
+  },
+  viewButton: {
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  viewButtonActive: {
+    backgroundColor: '#ff206e',
   },
   listContent: {
     padding: spacing.md,
@@ -593,5 +681,73 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 8,
     elevation: 8,
+  },
+  // Estilos para vista de lista
+  listItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: palette.surface,
+    marginHorizontal: spacing.md,
+    marginBottom: spacing.sm,
+    padding: spacing.md,
+    borderRadius: 12,
+    gap: spacing.md,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  listThumbnail: {
+    width: 56,
+    height: 56,
+    borderRadius: 8,
+  },
+  listIconContainer: {
+    width: 56,
+    height: 56,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  listIconText: {
+    fontSize: 24,
+  },
+  listContent: {
+    flex: 1,
+    marginRight: spacing.sm,
+  },
+  listTitle: {
+    fontSize: 15,
+    fontWeight: '600',
+    color: palette.textPrimary,
+    marginBottom: 4,
+  },
+  listMeta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  listArtist: {
+    fontSize: 13,
+    color: palette.textSecondary,
+    flex: 1,
+  },
+  listDot: {
+    fontSize: 13,
+    color: palette.textTertiary,
+  },
+  listGenre: {
+    fontSize: 13,
+    color: palette.textSecondary,
+  },
+  listDuration: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#4DD0E1',
+    marginRight: spacing.sm,
+  },
+  listPlayIcon: {
+    opacity: 0.6,
   },
 });
