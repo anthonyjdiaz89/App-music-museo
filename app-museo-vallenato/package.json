@@ -1,0 +1,36 @@
+{
+  "name": "app-museo-vallenato",
+  "version": "0.1.0",
+  "private": true,
+  "main": "expo/AppEntry",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "media": "node ../tools/serveMedia.mjs",
+    "update:audio": "node ../tools/updateAudioUrls.mjs 192.168.1.10 5173"
+  },
+  "dependencies": {
+    "@expo/metro-runtime": "~3.2.3",
+    "@react-navigation/native": "^6.1.17",
+    "@react-navigation/native-stack": "^6.9.28",
+    "@types/react": "~18.2.79",
+    "expo": "~51.0.0",
+    "expo-av": "~14.0.4",
+    "expo-font": "~12.0.6",
+    "expo-status-bar": "~1.12.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-native": "0.74.0",
+    "react-native-gesture-handler": "^2.16.2",
+    "react-native-reanimated": "^3.8.0",
+    "react-native-safe-area-context": "^4.10.5",
+    "react-native-screens": "^3.32.0",
+    "react-native-web": "~0.19.10"
+  },
+  "devDependencies": {
+    "typescript": "5.4.5",
+    "babel-preset-expo": "^11.0.7"
+  }
+}

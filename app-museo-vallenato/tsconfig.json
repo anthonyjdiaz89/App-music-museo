@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "jsx": "react-native",
+    "moduleResolution": "node",
+    "target": "ES2020",
+    "strict": false,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": [
+      "react",
+      "react-native"
+    ],
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@data/*": [
+        "../data/*"
+      ],
+      "@src/*": [
+        "src/*"
+      ],
+      "@theme": [
+        "src/theme/index"
+      ]
+    }
+  },
+  "extends": "expo/tsconfig.base"
+}
