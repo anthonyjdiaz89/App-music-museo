@@ -21,8 +21,11 @@ admin-panel/data/*.json
 # App assets (generated)
 app-museo-vallenato/assets/covers/*
 !app-museo-vallenato/assets/covers/.gitkeep
+!app-museo-vallenato/assets/covers/map.ts
+!app-museo-vallenato/assets/covers/trackMap.ts
 app-museo-vallenato/assets/audio/*
 !app-museo-vallenato/assets/audio/.gitkeep
+!app-museo-vallenato/assets/audio/map.ts
 app-museo-vallenato/assets/data/library.json
 app-museo-vallenato/public/assets/
 
