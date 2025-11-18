@@ -1,37 +1,33 @@
-/**
- * HomeScreen - Pantalla principal con categorías tipo kiosk
- * Muestra tarjetas organizadas por Historia, Biografías, Instrumentos, Testimonios
- */
-
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, TouchableOpacity, TextInput, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, TextInput, StyleSheet, Image } from 'react-native';
 import bundledLibrary from '../../assets/data/library.json';
 import { palette, typography, spacing } from '../theme';
-import { Track, Category } from '../types';
+import { Track, Genre } from '../types';
 import { loadLocalLibrary } from '../sync';
+import { coverByTrackMap } from '../../assets/covers/trackMap';
 
-const categories: Category[] = ['Historia', 'Biografías', 'Instrumentos', 'Testimonios'];
+const genres: Genre[] = ['Merengue', 'Paseo', 'Puya', 'Son'];
 
-// Mapeo de iconos por categoría
-const categoryIcons: Record<Category, string> = {
-  'Historia': '🕒',
-  'Biografías': '✍️',
-  'Instrumentos': '♪',
-  'Testimonios': '🎙️',
+// Mapeo de iconos por género musical
+const genreIcons: Record<Genre, string> = {
+  'Merengue': '🎵',
+  'Paseo': '🎶',
+  'Puya': '🎼',
+  'Son': '♪',
 };
 
-// Colores por categoría
-const categoryColors: Record<Category, string> = {
-  'Historia': '#FFE5CC',
-  'Biografías': '#FFE0CC',
-  'Instrumentos': '#FFEACC',
-  'Testimonios': '#FFD5CC',
+// Colores por género
+const genreColors: Record<Genre, string> = {
+  'Merengue': '#FFE5CC',
+  'Paseo': '#FFE0CC',
+  'Puya': '#FFEACC',
+  'Son': '#FFD5CC',
 };
 
 export default function HomeScreen({ navigation }: any) {
   const [items, setItems] = useState<Track[]>(bundledLibrary.items as Track[]);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<Category | 'Todos'>('Todos');
+  const [selectedGenre, setSelectedGenre] = useState<Genre | 'Todos'>('Todos');
 
   useEffect(() => {
     (async () => {
@@ -42,38 +38,62 @@ export default function HomeScreen({ navigation }: any) {
     })();
   }, []);
 
-  // Filtrar items por búsqueda y categoría
+  // Filtrar items por búsqueda y género
   const filteredItems = items.filter(item => {
     const matchesSearch = !searchQuery || 
       item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       item.artist.toLowerCase().includes(searchQuery.toLowerCase());
     
-    const matchesCategory = selectedCategory === 'Todos' || item.category === selectedCategory;
+    const matchesGenre = selectedGenre === 'Todos' || item.genre === selectedGenre;
     
-    return matchesSearch && matchesCategory;
+    return matchesSearch && matchesGenre;
   });
 
   const renderTrackCard = ({ item }: { item: Track }) => {
-    const bgColor = item.category ? categoryColors[item.category] : '#F5F5F5';
-    const icon = item.category ? categoryIcons[item.category] : '♪';
+    const bgColor = genreColors[item.genre] || '#F5F5F5';
+    const icon = genreIcons[item.genre] || '♪';
+    
+    // Obtener la imagen de carátula usando el trackId
+    const coverSource = coverByTrackMap[item.id] || null;
 
     return (
       <TouchableOpacity 
-        style={[styles.card, { backgroundColor: bgColor }]}
+        style={styles.card}
         onPress={() => navigation.navigate('Player', { trackId: item.id })}
         activeOpacity={0.7}
       >
-        <View style={styles.cardIcon}>
-          <Text style={styles.iconText}>{icon}</Text>
-        </View>
-        
-        <View style={styles.cardContent}>
-          <Text style={styles.cardTitle} numberOfLines={2}>{item.title}</Text>
-          <Text style={styles.cardCategory}>{item.category || item.genre}</Text>
+        {/* Icono de género en la esquina superior izquierda */}
+        <View style={[styles.cardIconBadge, { backgroundColor: bgColor }]}>
+          <Text style={styles.iconBadgeText}>{icon}</Text>
         </View>
 
+        {/* Imagen de carátula o placeholder */}
+        {coverSource ? (
+          <Image 
+            source={coverSource} 
+            style={styles.coverImage}
+            resizeMode="cover"
+          />
+        ) : (
+          <View style={[styles.coverPlaceholder, { backgroundColor: bgColor }]}>
+            <Text style={styles.placeholderIcon}>♪</Text>
+          </View>
+        )}
+
+        {/* Divisor */}
+        <View style={styles.cardDivider} />
+        
+        {/* Información de la canción */}
+        <View style={styles.cardInfo}>
+          <Text style={styles.cardTitle} numberOfLines={1}>{item.title}</Text>
+          <Text style={styles.cardGenre} numberOfLines={1}>{item.genre === 'Son' ? 'Son' : item.genre}</Text>
+        </View>
+
+        {/* Duración en la esquina inferior derecha */}
         {item.duration && (
-          <Text style={styles.cardDuration}>{item.duration}</Text>
+          <View style={styles.durationBadge}>
+            <Text style={styles.durationText}>{item.duration}</Text>
+          </View>
         )}
       </TouchableOpacity>
     );
@@ -98,32 +118,32 @@ export default function HomeScreen({ navigation }: any) {
         <Text style={styles.searchIcon}>🔍</Text>
         <TextInput
           style={styles.searchInput}
-          placeholder="Buscar por título, artista o categoría..."
+          placeholder="Buscar por título, artista o género..."
           value={searchQuery}
           onChangeText={setSearchQuery}
           placeholderTextColor="#999"
         />
       </View>
 
-      {/* Filtros de categoría */}
+      {/* Filtros de género */}
       <View style={styles.filterContainer}>
         <TouchableOpacity 
-          style={[styles.filterButton, selectedCategory === 'Todos' && styles.filterButtonActive]}
-          onPress={() => setSelectedCategory('Todos')}
+          style={[styles.filterButton, selectedGenre === 'Todos' && styles.filterButtonActive]}
+          onPress={() => setSelectedGenre('Todos')}
         >
-          <Text style={[styles.filterText, selectedCategory === 'Todos' && styles.filterTextActive]}>
+          <Text style={[styles.filterText, selectedGenre === 'Todos' && styles.filterTextActive]}>
             Todos
           </Text>
         </TouchableOpacity>
 
-        {categories.map(cat => (
+        {genres.map(genre => (
           <TouchableOpacity 
-            key={cat}
-            style={[styles.filterButton, selectedCategory === cat && styles.filterButtonActive]}
-            onPress={() => setSelectedCategory(cat)}
+            key={genre}
+            style={[styles.filterButton, selectedGenre === genre && styles.filterButtonActive]}
+            onPress={() => setSelectedGenre(genre)}
           >
-            <Text style={[styles.filterText, selectedCategory === cat && styles.filterTextActive]}>
-              {cat}
+            <Text style={[styles.filterText, selectedGenre === genre && styles.filterTextActive]}>
+              {genre === 'Son' ? 'Son' : genre}
             </Text>
           </TouchableOpacity>
         ))}
@@ -258,14 +278,77 @@ const styles = StyleSheet.create({
   },
   card: {
     flex: 1,
-    borderRadius: 16,
-    padding: spacing.md,
-    minHeight: 140,
+    margin: spacing.sm,
+    borderRadius: 12,
+    backgroundColor: '#FFFFFF',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.08,
+    shadowOpacity: 0.1,
     shadowRadius: 6,
     elevation: 3,
+    overflow: 'hidden',
+    position: 'relative',
+  },
+  cardIconBadge: {
+    position: 'absolute',
+    top: 8,
+    left: 8,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    justifyContent: 'center',
+    alignItems: 'center',
+    zIndex: 10,
+  },
+  iconBadgeText: {
+    fontSize: 16,
+  },
+  coverImage: {
+    width: '100%',
+    height: 140,
+    backgroundColor: '#F5F5F5',
+  },
+  coverPlaceholder: {
+    width: '100%',
+    height: 140,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  placeholderIcon: {
+    fontSize: 48,
+    opacity: 0.3,
+  },
+  cardDivider: {
+    height: 1,
+    backgroundColor: '#E0E0E0',
+  },
+  cardInfo: {
+    padding: spacing.md,
+    paddingBottom: 32,
+  },
+  cardTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#2C2C2C',
+    marginBottom: 4,
+  },
+  cardGenre: {
+    fontSize: 12,
+    color: '#999999',
+  },
+  durationBadge: {
+    position: 'absolute',
+    bottom: 8,
+    right: 8,
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+  },
+  durationText: {
+    fontSize: 11,
+    color: '#FFFFFF',
+    fontWeight: '500',
   },
   cardIcon: {
     width: 48,
@@ -281,12 +364,6 @@ const styles = StyleSheet.create({
   },
   cardContent: {
     flex: 1,
-  },
-  cardTitle: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#2C2C2C',
-    marginBottom: spacing.xs,
   },
   cardCategory: {
     fontSize: 12,
