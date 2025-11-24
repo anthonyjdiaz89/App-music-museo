@@ -1,0 +1,1364 @@
+{
+  "version": 2,
+  "items": [
+    {
+      "id": "trk_0djxswp",
+      "title": "A mi Papá",
+      "artist": "Diomedez Diaz - Colacho Mendoza",
+      "album": "DOS GRANDES",
+      "genre": "Merengue",
+      "audioUrl": "A_Mi_Papa_Diomedes_Diaz_-_Colacho_Mendoza.mp3",
+      "imageUrl": "4._DOS_GRANDES_JSC_3544.JPG"
+    },
+    {
+      "id": "trk_3q49o4t",
+      "title": "A Mi Papá",
+      "artist": "Diomedes Díaz - _Colacho_ Mendoza",
+      "album": "DOS GRANDES",
+      "genre": "Merengue",
+      "audioUrl": "A_Mi_Papa_Diomedes_Diaz_-_Colacho_Mendoza.mp3",
+      "imageUrl": "4._DOS_GRANDES_JSC_3544.JPG"
+    },
+    {
+      "id": "trk_zv6nwrm",
+      "title": "Bendito Sea Dios",
+      "artist": "Hermanos Zuleta",
+      "album": "UN CANTO CELESTIAL",
+      "genre": "Merengue",
+      "audioUrl": "Bendito_Sea_Dios_Hermanos_Zuleta.mp3",
+      "imageUrl": "17._UN_CANTO_CELESTIAL_JSC_3582.JPG"
+    },
+    {
+      "id": "trk_t7hxmz2",
+      "title": "Silvio Brito y los Hermanos Meriño",
+      "artist": "Cerro Peralta",
+      "album": null,
+      "genre": "Merengue",
+      "audioUrl": "Cerro_Peralta_-_Silvio_Brito_y_los_Hermanos_Merino.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_epxzpbi",
+      "title": "De Tanto Verte",
+      "artist": "Binomio De Oro - Audio",
+      "album": "POR LO ALTO",
+      "genre": "Merengue",
+      "audioUrl": "De_Tanto_Verte_Binomio_De_Oro_-_Audio.mp3",
+      "imageUrl": "22._POR_LO_ALTO_JSC_3600.JPG"
+    },
+    {
+      "id": "trk_xnqbvmp",
+      "title": "El Cambio",
+      "artist": "Diomedes Diaz",
+      "album": "DE FRENTE",
+      "genre": "Merengue",
+      "audioUrl": "Diomedes_Diaz_-_El_Cambio.mp3",
+      "imageUrl": "3._DE_FRENTE_JSC_3542.JPG"
+    },
+    {
+      "id": "trk_7gspukd",
+      "title": "El Pintor",
+      "artist": "Diomedes Díaz",
+      "album": "DE FRENTE",
+      "genre": "Merengue",
+      "audioUrl": "Diomedes_Diaz_-_El_Pintor.mp3",
+      "imageUrl": "3._DE_FRENTE_JSC_3542.JPG"
+    },
+    {
+      "id": "trk_phebo90",
+      "title": "Mi Vida Musical",
+      "artist": "Diomedes Díaz",
+      "album": "MI VIDA MUSICAL",
+      "genre": "Merengue",
+      "audioUrl": "Diomedes_Diaz_-_Mi_Vida_Musical.mp3",
+      "imageUrl": "14._MI_VIDA_MUSICAL_JSC_3572.JPG"
+    },
+    {
+      "id": "trk_093fsoh",
+      "title": "Soy Amigo",
+      "artist": "Diomedes Díaz",
+      "album": "DE FRENTE",
+      "genre": "Merengue",
+      "audioUrl": "Diomedes_Diaz_-_Soy_Amigo.mp3",
+      "imageUrl": "3._DE_FRENTE_JSC_3542.JPG"
+    },
+    {
+      "id": "trk_aa2wr7s",
+      "title": "Diomedes Díaz",
+      "artist": "Cocha Molina - Honda Herida",
+      "album": null,
+      "genre": "Merengue",
+      "audioUrl": "Diomedes_Diaz_Cocha_Molina_-_Honda_Herida.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_fbzkhi1",
+      "title": "Diomedes Díaz",
+      "artist": "Colacho Mendoza - Grandes Compositores",
+      "album": "DOS GRANDES",
+      "genre": "Merengue",
+      "audioUrl": "Diomedes_Diaz_Colacho_Mendoza_-_Grandes_Compositores.mp3",
+      "imageUrl": "4._DOS_GRANDES_JSC_3544.JPG"
+    },
+    {
+      "id": "trk_y4rw3p2",
+      "title": "Diomedes Díaz",
+      "artist": "Colacho Mendoza - Mi Memoria",
+      "album": "DOS GRANDES",
+      "genre": "Merengue",
+      "audioUrl": "Diomedes_Diaz_Colacho_Mendoza_-_Mi_Memoria.mp3",
+      "imageUrl": "4._DOS_GRANDES_JSC_3544.JPG"
+    },
+    {
+      "id": "trk_aqk4er2",
+      "title": "Diomedes Díaz",
+      "artist": "Juancho Rois - Amores Escondidos",
+      "album": "GANÓ EL FOLCLOR",
+      "genre": "Merengue",
+      "audioUrl": "Diomedes_Diaz_Juancho_Rois_-_Amores_Escondidos.mp3",
+      "imageUrl": "11._GANO_EL_FOLCLOR_JSC_3565.JPG"
+    },
+    {
+      "id": "trk_aymzuem",
+      "title": "Dos Papeles",
+      "artist": "Jorge Oñate - Hermanos López",
+      "album": "FESTIVAL VALLENATO",
+      "genre": "Merengue",
+      "audioUrl": "Dos_Papeles_Jorge_Onate_-_Hermanos_Lopez.mp3",
+      "imageUrl": "39.FESTIVAL_VALLENATO_JSC_3653.JPG"
+    },
+    {
+      "id": "trk_oo95q1e",
+      "title": "Juan Piña y Jesualdo Bolaños",
+      "artist": "El Cordobés",
+      "album": null,
+      "genre": "Merengue",
+      "audioUrl": "El_Cordobes_-_Juan_Pina_y_Jesualdo_Bolanos.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_5vrpb3o",
+      "title": "El Errante",
+      "artist": "Diomedes Díaz - Colacho Mendoza",
+      "album": "DOS GRANDES",
+      "genre": "Merengue",
+      "audioUrl": "El_Errante_Diomedes_Diaz_-_Colacho_Mendoza.mp3",
+      "imageUrl": "4._DOS_GRANDES_JSC_3544.JPG"
+    },
+    {
+      "id": "trk_eoc2vb8",
+      "title": "El Esqueleto",
+      "artist": "Diomedes Diaz - Álvaro López",
+      "album": "DE FRENTE",
+      "genre": "Merengue",
+      "audioUrl": "El_Esqueleto_Diomedes_Diaz_-_Alvaro_Lopez.mp3",
+      "imageUrl": "3._DE_FRENTE_JSC_3542.JPG"
+    },
+    {
+      "id": "trk_qzn39vv",
+      "title": "Alejandro Durán",
+      "artist": "El Leñazo",
+      "album": null,
+      "genre": "Merengue",
+      "audioUrl": "El_Lenazo_-_Alejandro_Duran.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_qt11oxl",
+      "title": "El Rey",
+      "artist": "Binomio De Oro",
+      "album": "POR LO ALTO",
+      "genre": "Merengue",
+      "audioUrl": "El_Rey_Binomio_De_Oro.mp3",
+      "imageUrl": "22._POR_LO_ALTO_JSC_3600.JPG"
+    },
+    {
+      "id": "trk_1h7isb3",
+      "title": "Los Hermanos Zuleta",
+      "artist": "El Viejo Miguel",
+      "album": null,
+      "genre": "Merengue",
+      "audioUrl": "El_Viejo_Miguel_-_Los_Hermanos_Zuleta.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_4dlxprq",
+      "title": "El Pechiche",
+      "artist": "Iván Villazón & Saul Lallemand",
+      "album": "CUARTO CONCIERTO VALLENATO",
+      "genre": "Merengue",
+      "audioUrl": "Ivan_Villazon_Saul_Lallemand_-_El_Pechiche.mp3",
+      "imageUrl": "74._CUARTO_CONCIERTO_VALLENATO_JSC_3765.JPG"
+    },
+    {
+      "id": "trk_o9z197q",
+      "title": "Alejo Durán",
+      "artist": "La Brasilera",
+      "album": null,
+      "genre": "Merengue",
+      "audioUrl": "La_Brasilera_-_Alejo_Duran.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_vokmo7t",
+      "title": "La Casa de Leandro",
+      "artist": "Poncho Zuleta - Beto Villa",
+      "album": "UN CANTO CELESTIAL",
+      "genre": "Merengue",
+      "audioUrl": "La_Casa_de_Leandro_Poncho_Zuleta_-_Beto_Villa.mp3",
+      "imageUrl": "17._UN_CANTO_CELESTIAL_JSC_3582.JPG"
+    },
+    {
+      "id": "trk_8udxhgp",
+      "title": "Poncho Zuleta y Beto Villa",
+      "artist": "La Ceiba de Villanueva",
+      "album": null,
+      "genre": "Merengue",
+      "audioUrl": "La_Ceiba_de_Villanueva_-_Poncho_Zuleta_y_Beto_Villa.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_tpawn1u",
+      "title": "La Demanda",
+      "artist": "Beto Zabaleta - Beto Villa",
+      "album": null,
+      "genre": "Merengue",
+      "audioUrl": "La_Demanda_Beto_Zabaleta_-_Beto_Villa.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_zmxwq4h",
+      "title": "La Gira",
+      "artist": "Jorge Oñate - Emiliano Zuleta",
+      "album": "UN CANTO CELESTIAL",
+      "genre": "Merengue",
+      "audioUrl": "La_Gira_Jorge_Onate_-_Emiliano_Zuleta.mp3",
+      "imageUrl": "17._UN_CANTO_CELESTIAL_JSC_3582.JPG"
+    },
+    {
+      "id": "trk_9vs14sg",
+      "title": "La Maye",
+      "artist": "Bovea y sus Vallenatos",
+      "album": null,
+      "genre": "Merengue",
+      "audioUrl": "La_Maye_Bovea_y_sus_Vallenatos.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_loeydq0",
+      "title": "La Molinera",
+      "artist": "Jorge Oñate - Juancho Rois",
+      "album": "GANÓ EL FOLCLOR",
+      "genre": "Merengue",
+      "audioUrl": "La_Molinera_Jorge_Onate_-_Juancho_Rois.mp3",
+      "imageUrl": "11._GANO_EL_FOLCLOR_JSC_3565.JPG"
+    },
+    {
+      "id": "trk_zv3k2a8",
+      "title": "Armando Moscote",
+      "artist": "La Mona del Cañaguate",
+      "album": null,
+      "genre": "Merengue",
+      "audioUrl": "La_Mona_del_Canaguate-_Armando_Moscote.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_tnzfn9z",
+      "title": "Alejo Durán",
+      "artist": "La Mujer y la Primavera",
+      "album": null,
+      "genre": "Merengue",
+      "audioUrl": "La_Mujer_y_la_Primavera_-_Alejo_Duran.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_ntalu2v",
+      "title": "La Parrandita",
+      "artist": "Jorge Oñate - Chiche Martínez",
+      "album": "FESTIVAL VALLENATO",
+      "genre": "Merengue",
+      "audioUrl": "La_Parrandita_Jorge_Onate_-_Chiche_Martinez.mp3",
+      "imageUrl": "39.FESTIVAL_VALLENATO_JSC_3653.JPG"
+    },
+    {
+      "id": "trk_whag3vh",
+      "title": "Jorge Oñate y Juancho Rois",
+      "artist": "La Reconquista",
+      "album": null,
+      "genre": "Merengue",
+      "audioUrl": "La_Reconquista_-_Jorge_Onate_y_Juancho_Rois.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_x97c44q",
+      "title": "La Vieja Bonga",
+      "artist": "Los Hermanos Zuleta",
+      "album": "UN CANTO CELESTIAL",
+      "genre": "Merengue",
+      "audioUrl": "La_Vieja_Bonga_Los_Hermanos_Zuleta.mp3",
+      "imageUrl": "17._UN_CANTO_CELESTIAL_JSC_3582.JPG"
+    },
+    {
+      "id": "trk_afovlx1",
+      "title": "La Vieja Sara",
+      "artist": "Jorge Oñate - Chiche Martínez",
+      "album": "FESTIVAL VALLENATO",
+      "genre": "Merengue",
+      "audioUrl": "La_Vieja_Sara_Jorge_Onate_-_Chiche_Martinez.mp3",
+      "imageUrl": "39.FESTIVAL_VALLENATO_JSC_3653.JPG"
+    },
+    {
+      "id": "trk_sgltzb7",
+      "title": "El Firme",
+      "artist": "Los Hermanos Zuleta",
+      "album": "UN CANTO CELESTIAL",
+      "genre": "Merengue",
+      "audioUrl": "Los_Hermanos_Zuleta_-_El_Firme.mp3",
+      "imageUrl": "17._UN_CANTO_CELESTIAL_JSC_3582.JPG"
+    },
+    {
+      "id": "trk_7rduj03",
+      "title": "El Turco Farid",
+      "artist": "Los Hermanos Zuleta",
+      "album": "FIESTA VALLENATA VOL 5",
+      "genre": "Merengue",
+      "audioUrl": "Los_Hermanos_Zuleta_-_El_Turco_Farid.mp3",
+      "imageUrl": "77_FIESTA_VALLENATA_VOLUMEN_5_JSC_3824.JPG"
+    },
+    {
+      "id": "trk_fxez35t",
+      "title": "La Estrella De Patillal",
+      "artist": "Los Hermanos Zuleta",
+      "album": "UN CANTO CELESTIAL",
+      "genre": "Merengue",
+      "audioUrl": "Los_Hermanos_Zuleta_-_La_Estrella_De_Patillal.mp3",
+      "imageUrl": "17._UN_CANTO_CELESTIAL_JSC_3582.JPG"
+    },
+    {
+      "id": "trk_i4y06kv",
+      "title": "Lola La Negra",
+      "artist": "Los Hermanos Zuleta",
+      "album": "UN CANTO CELESTIAL",
+      "genre": "Merengue",
+      "audioUrl": "Los_Hermanos_Zuleta_-_Lola_La_Negra.mp3",
+      "imageUrl": "17._UN_CANTO_CELESTIAL_JSC_3582.JPG"
+    },
+    {
+      "id": "trk_gn1tr7b",
+      "title": "Mi Gran Amigo",
+      "artist": "Jorge Oñate . Hermanos López",
+      "album": "FESTIVAL VALLENATO",
+      "genre": "Merengue",
+      "audioUrl": "Mi_Gran_Amigo_Jorge_Onate_._Hermanos_Lopez.mp3",
+      "imageUrl": "39.FESTIVAL_VALLENATO_JSC_3653.JPG"
+    },
+    {
+      "id": "trk_3iozs2o",
+      "title": "Nativo Del Valle",
+      "artist": "Los Hermanos Zuleta",
+      "album": "UN CANTO CELESTIAL",
+      "genre": "Merengue",
+      "audioUrl": "Nativo_Del_Valle_Los_Hermanos_Zuleta.mp3",
+      "imageUrl": "17._UN_CANTO_CELESTIAL_JSC_3582.JPG"
+    },
+    {
+      "id": "trk_22imsu2",
+      "title": "Qué Te Pasa María Tere_",
+      "artist": "Binomio De Oro",
+      "album": "POR LO ALTO",
+      "genre": "Merengue",
+      "audioUrl": "Que_Te_Pasa_Maria_Tere_Binomio_De_Oro.mp3",
+      "imageUrl": "22._POR_LO_ALTO_JSC_3600.JPG"
+    },
+    {
+      "id": "trk_ibjt00g",
+      "title": "Los Hermanos Zuleta",
+      "artist": "Tiempos Idos",
+      "album": null,
+      "genre": "Merengue",
+      "audioUrl": "Tiempos_Idos-_Los_Hermanos_Zuleta.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_huu38no",
+      "title": "DIOMEDES DIAZ (FULL AUDIO)",
+      "artist": "-MATILDE LINA",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "-MATILDE_LINA-_DIOMEDES_DIAZ_FULL_AUDIO.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_z7sldjm",
+      "title": "Alejandro Durán - Pedazo de Acordeón",
+      "artist": "039",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "039_-_Alejandro_Duran_-_Pedazo_de_Acordeon.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_l6x471u",
+      "title": "Acompáñame",
+      "artist": "Miguel Morales - Víctor Reyes",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Acompaname_Miguel_Morales_-_Victor_Reyes.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_iuidkxm",
+      "title": "Almas Felices",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Almas_Felices.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_3ljtrwl",
+      "title": "Amarte Más No Pude",
+      "artist": "Diomedes Díaz - Juancho Rois",
+      "album": "FIESTA VALLENATA VOL 5",
+      "genre": "Paseo",
+      "audioUrl": "Amarte_Mas_No_Pude_Diomedes_Diaz_-_Juancho_Rois.mp3",
+      "imageUrl": "77_FIESTA_VALLENATA_VOLUMEN_5_JSC_3824.JPG"
+    },
+    {
+      "id": "trk_ekjoqlj",
+      "title": "La hamaca grande",
+      "artist": "Andres Landero",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Andres_Landero_-_La_hamaca_grande.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_cfi2r8j",
+      "title": "Anhelos",
+      "artist": "Alfredo Gutiérrez - Audio",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Anhelos_Alfredo_Gutierrez_-_Audio.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_k79clds",
+      "title": "Ausencia Sentimental",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Ausencia_Sentimental.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_b4199f8",
+      "title": "Bertha Caldera",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Bertha_Caldera.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_145e1km",
+      "title": "Bovea y Sus Vallenatos  La Casa En El Aire [ Discos Fuentes ]",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Bovea_y_Sus_Vallenatos_La_Casa_En_El_Aire_Discos_Fuentes_.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_vo3afpw",
+      "title": "Cobijas  Jairo Serrano (Con Letra HD) Ay Hombe!!!",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Cobijas_Jairo_Serrano_Con_Letra_HD_Ay_Hombe.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_cw3njdp",
+      "title": "Diana",
+      "artist": "Diomedes Díaz - Letra Oficial",
+      "album": "DE FRENTE",
+      "genre": "Paseo",
+      "audioUrl": "Diana_Diomedes_Diaz_-_Letra_Oficial.mp3",
+      "imageUrl": "3._DE_FRENTE_JSC_3542.JPG"
+    },
+    {
+      "id": "trk_z2kfzfu",
+      "title": "Diomedes Díaz",
+      "artist": "Colacho Mendoza - Te Necesito (Cover Audio)",
+      "album": "DOS GRANDES",
+      "genre": "Paseo",
+      "audioUrl": "Diomedes_Diaz_Colacho_Mendoza_-_Te_Necesito_Cover_Audio.mp3",
+      "imageUrl": "4._DOS_GRANDES_JSC_3544.JPG"
+    },
+    {
+      "id": "trk_1go1x24",
+      "title": "Directo Al Corazón",
+      "artist": "Jesús Manuel - Ismael Rudas",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Directo_Al_Corazon_Jesus_Manuel_-_Ismael_Rudas.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_fgw4y5b",
+      "title": "El Cantor De Fonseca",
+      "artist": "Jorge Onate - Letra Oficial",
+      "album": "FESTIVAL VALLENATO",
+      "genre": "Paseo",
+      "audioUrl": "El_Cantor_De_Fonseca_Jorge_Onate_-_Letra_Oficial.mp3",
+      "imageUrl": "39.FESTIVAL_VALLENATO_JSC_3653.JPG"
+    },
+    {
+      "id": "trk_84olwam",
+      "title": "El Mocoso",
+      "artist": "Silvio Brito - Orangel Maestre",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "El_Mocoso_Silvio_Brito_-_Orangel_Maestre.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_1tteodu",
+      "title": "El Testamento",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "El_Testamento.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_6f5535x",
+      "title": "Elegía a Jaime Molina",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Elegia_a_Jaime_Molina.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_jzu1qlz",
+      "title": "Gitana",
+      "artist": "Los Betos - Video",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Gitana_Los_Betos_-_Video.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_hlqtjc1",
+      "title": "Historia De Amor",
+      "artist": "Silvio Brito - Osmel Meriño",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Historia_De_Amor_Silvio_Brito_-_Osmel_Merino.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_g9ick1h",
+      "title": "Igual Que Aquella Noche",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Igual_Que_Aquella_Noche.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_838gqzm",
+      "title": "4.Mi Rosalbita- Festivaleando 2003",
+      "artist": "Iván Villazón & Saul Lallemand",
+      "album": "CUARTO CONCIERTO VALLENATO",
+      "genre": "Paseo",
+      "audioUrl": "Ivan_Villazon_Saul_Lallemand_-4.Mi_Rosalbita-_Festivaleando_2003.mp3",
+      "imageUrl": "74._CUARTO_CONCIERTO_VALLENATO_JSC_3765.JPG"
+    },
+    {
+      "id": "trk_s4bugld",
+      "title": "La Caja Negra",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "La_Caja_Negra.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_u9vwbj3",
+      "title": "La Casa",
+      "artist": "Los Hermanos Zuleta - Letra Oficial",
+      "album": "UN CANTO CELESTIAL",
+      "genre": "Paseo",
+      "audioUrl": "La_Casa_Los_Hermanos_Zuleta_-_Letra_Oficial.mp3",
+      "imageUrl": "17._UN_CANTO_CELESTIAL_JSC_3582.JPG"
+    },
+    {
+      "id": "trk_pv0cqdt",
+      "title": "La Consentida",
+      "artist": "Fabián Corrales",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "La_Consentida_Fabian_Corrales.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_2d66dvr",
+      "title": "La Creciente",
+      "artist": "Rafael Orozco Y El Binomio De Oro - Video",
+      "album": "ADELANTE",
+      "genre": "Paseo",
+      "audioUrl": "La_Creciente_Rafael_Orozco_Y_El_Binomio_De_Oro_-_Video.mp3",
+      "imageUrl": "20_ADELANTE_JSC_3596.JPG"
+    },
+    {
+      "id": "trk_g4dkpxt",
+      "title": "La Diosa Coronada",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "La_Diosa_Coronada.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_t6vsn3m",
+      "title": "La Gordita",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "La_Gordita.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_eftv7yu",
+      "title": "Daniel Celedon (Con Letra ) Ay Hombe!!!",
+      "artist": "La gota fria",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "La_gota_fria-_Daniel_Celedon_Con_Letra_Ay_Hombe.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_vlus3c8",
+      "title": "Los Caminos De La Vida",
+      "artist": "Los Diablitos - Video Oficial",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Los_Caminos_De_La_Vida_Los_Diablitos_-_Video_Oficial.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_b09ll9f",
+      "title": "Los Novios",
+      "artist": "Alfredo Gutiérrez - Audio",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Los_Novios_Alfredo_Gutierrez_-_Audio.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_l9mpsff",
+      "title": "Luna Sanjuanera",
+      "artist": "Los Hermanos Zuleta - Letra Oficial",
+      "album": "UN CANTO CELESTIAL",
+      "genre": "Paseo",
+      "audioUrl": "Luna_Sanjuanera_Los_Hermanos_Zuleta_-_Letra_Oficial.mp3",
+      "imageUrl": "17._UN_CANTO_CELESTIAL_JSC_3582.JPG"
+    },
+    {
+      "id": "trk_gjh5ykp",
+      "title": "Marianita",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Marianita.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_v48bq1y",
+      "title": "Mi Diosa Humana",
+      "artist": "Miguel Morales - Video Oficial",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Mi_Diosa_Humana_Miguel_Morales_-_Video_Oficial.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_pyuh3rd",
+      "title": "Mi Hermano Y Yo",
+      "artist": "Los Hermanos Zuleta - Letra Oficial",
+      "album": "UN CANTO CELESTIAL",
+      "genre": "Paseo",
+      "audioUrl": "Mi_Hermano_Y_Yo_Los_Hermanos_Zuleta_-_Letra_Oficial.mp3",
+      "imageUrl": "17._UN_CANTO_CELESTIAL_JSC_3582.JPG"
+    },
+    {
+      "id": "trk_xeznr2i",
+      "title": "Mi Niño Se Creció",
+      "artist": "Los Hermanos Zuleta - Letra Oficial",
+      "album": "UN CANTO CELESTIAL",
+      "genre": "Paseo",
+      "audioUrl": "Mi_Nino_Se_Crecio_Los_Hermanos_Zuleta_-_Letra_Oficial.mp3",
+      "imageUrl": "17._UN_CANTO_CELESTIAL_JSC_3582.JPG"
+    },
+    {
+      "id": "trk_dbvu9pu",
+      "title": "Mi Poema",
+      "artist": "Silvio Brito - Audio",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Mi_Poema_Silvio_Brito_-_Audio.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_bbbtdpc",
+      "title": "Mujer Conforme",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Mujer_Conforme.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_r6sgadc",
+      "title": "Lucho Cuadros y Calixto Ochoa (Con Letra HD) Ay Hombe!!!",
+      "artist": "Muriendo lentamente",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Muriendo_lentamente-_Lucho_Cuadros_y_Calixto_Ochoa_Con_Letra_HD_Ay_Hombe.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_860ybji",
+      "title": "Nido De Amor",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Nido_De_Amor.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_3j9ilp7",
+      "title": "No Comprendi Tu Amor",
+      "artist": "Jorge Oñate - Álvaro López",
+      "album": "FESTIVAL VALLENATO",
+      "genre": "Paseo",
+      "audioUrl": "No_Comprendi_Tu_Amor_Jorge_Onate_-_Alvaro_Lopez.mp3",
+      "imageUrl": "39.FESTIVAL_VALLENATO_JSC_3653.JPG"
+    },
+    {
+      "id": "trk_29c9xs6",
+      "title": "Erick Escobar y La Decisión Vallenata",
+      "artist": "No Pude Quitarte las Espinas",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "No_Pude_Quitarte_las_Espinas_-_Erick_Escobar_y_La_Decision_Vallenata.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_djajrt3",
+      "title": "Obsesión (feat. Ramiro Better)",
+      "artist": "Desconocido",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Obsesion_feat._Ramiro_Better.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_sp0uchh",
+      "title": "Rio Badillo",
+      "artist": "Los Hermanos Zuleta - Letra Oficial",
+      "album": "UN CANTO CELESTIAL",
+      "genre": "Paseo",
+      "audioUrl": "Rio_Badillo_Los_Hermanos_Zuleta_-_Letra_Oficial.mp3",
+      "imageUrl": "17._UN_CANTO_CELESTIAL_JSC_3582.JPG"
+    },
+    {
+      "id": "trk_ntfyyby",
+      "title": "Señora",
+      "artist": "Otto Serge y Rafael Ricardo - Video Letra",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Senora_Otto_Serge_y_Rafael_Ricardo_-_Video_Letra.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_jsmh1n3",
+      "title": "Sin Medir Distancias",
+      "artist": "Diomedes Díaz - Cocha Molina",
+      "album": "DE FRENTE",
+      "genre": "Paseo",
+      "audioUrl": "Sin_Medir_Distancias_Diomedes_Diaz_-_Cocha_Molina.mp3",
+      "imageUrl": "3._DE_FRENTE_JSC_3542.JPG"
+    },
+    {
+      "id": "trk_dtso3kj",
+      "title": "Sombra Perdida",
+      "artist": "Rafael Orozco Con El Binomio De Oro - Video Letra",
+      "album": "ADELANTE",
+      "genre": "Paseo",
+      "audioUrl": "Sombra_Perdida_Rafael_Orozco_Con_El_Binomio_De_Oro_-_Video_Letra.mp3",
+      "imageUrl": "20_ADELANTE_JSC_3596.JPG"
+    },
+    {
+      "id": "trk_letimed",
+      "title": "Tarde Lo Conoci",
+      "artist": "Patricia Teherán",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Tarde_Lo_Conoci_Patricia_Teheran.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_ztffzy8",
+      "title": "Tierra Mala",
+      "artist": "Los Chiches Vallenatos",
+      "album": null,
+      "genre": "Paseo",
+      "audioUrl": "Tierra_Mala_Los_Chiches_Vallenatos.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_mffy227",
+      "title": "Cuando el Tigre Está en la Cueva",
+      "artist": "Iván Villazón - Wilbert Mendoza",
+      "album": "CUARTO CONCIERTO VALLENATO",
+      "genre": "Puya",
+      "audioUrl": "Cuando_el_Tigre_Esta_en_la_Cueva_Ivan_Villazon_-_Wilbert_Mendoza.mp3",
+      "imageUrl": "74._CUARTO_CONCIERTO_VALLENATO_JSC_3765.JPG"
+    },
+    {
+      "id": "trk_1imqjg1",
+      "title": "Dígalo Cantando - Jorge Celedón",
+      "artist": "Ivo Díaz & Sergio Luis Rodríguez",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Digalo_Cantando_-_Jorge_Celedon_Ivo_Diaz_Sergio_Luis_Rodriguez.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_o09fkcy",
+      "title": "El Chicunguña",
+      "artist": "Argelio Cuadrado",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "El_Chicunguna_Argelio_Cuadrado.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_wp10r2m",
+      "title": "El Pimiento",
+      "artist": "Marciano Torres y su Conjunto",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "El_Pimiento_Marciano_Torres_y_su_Conjunto.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_wfqbmu0",
+      "title": "El Puyará",
+      "artist": "_Mañe_ Alcalá",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "El_Puyara_Mane_Alcala.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_48za887",
+      "title": "El Sabor de la Puya",
+      "artist": "Iván Ovalle",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "El_Sabor_de_la_Puya_Ivan_Ovalle.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_bd2sows",
+      "title": "El Zoologico",
+      "artist": "Alfredo Gutiérrez",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "El_Zoologico_Alfredo_Gutierrez.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_6m05z34",
+      "title": "La Destreza",
+      "artist": "Julián Mojica - Aldair Velásquez",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "La_Destreza_Julian_Mojica_-_Aldair_Velasquez.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_m50v0ce",
+      "title": "Alfredo Gutiérrez Y Su Conjunto",
+      "artist": "La Fiesta De Los Pajaros",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "La_Fiesta_De_Los_Pajaros_-_Alfredo_Gutierrez_Y_Su_Conjunto.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_rzenuhl",
+      "title": "La Gatera",
+      "artist": "_Beto_ Rada",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "La_Gatera_Beto_Rada.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_qur7pp5",
+      "title": "La Insignia del Folklore",
+      "artist": "Marciano Martínez",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "La_Insignia_del_Folklore_Marciano_Martinez.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_2qwo9d0",
+      "title": "La Puerca Paría",
+      "artist": "Alberto Pacheco",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "La_Puerca_Paria_Alberto_Pacheco.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_0w54bep",
+      "title": "La Pulla",
+      "artist": "Ivo Luis Diaz & Norberto Romero Ospino",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "La_Pulla_Ivo_Luis_Diaz_Norberto_Romero_Ospino.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_yk29ggp",
+      "title": "La Puya De Las Mujeres",
+      "artist": "Iván Villazón - Jeimy Arrieta",
+      "album": "CUARTO CONCIERTO VALLENATO",
+      "genre": "Puya",
+      "audioUrl": "La_Puya_De_Las_Mujeres_Ivan_Villazon_-_Jeimy_Arrieta.mp3",
+      "imageUrl": "74._CUARTO_CONCIERTO_VALLENATO_JSC_3765.JPG"
+    },
+    {
+      "id": "trk_3etwq9a",
+      "title": "La Puya de Mi Amor",
+      "artist": "Carlos Márquez",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "La_Puya_de_Mi_Amor_Carlos_Marquez.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_xewawqn",
+      "title": "La Puya Del Modernismo",
+      "artist": "Juan David Herrera - Eduar Morelos",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "La_Puya_Del_Modernismo_Juan_David_Herrera_-_Eduar_Morelos.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_pidd9cy",
+      "title": "La Puya No Es Bulla",
+      "artist": "Eibar Gutiérrez",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "La_Puya_No_Es_Bulla_Eibar_Gutierrez.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_xns68np",
+      "title": "Los Corraleros De Majagual",
+      "artist": "La Puya Rayá",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "La_Puya_Raya_-_Los_Corraleros_De_Majagual.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_3y26piy",
+      "title": "Calixto Ochoa",
+      "artist": "La Puya Regional",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "La_Puya_Regional-_Calixto_Ochoa.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_xb5cnjy",
+      "title": "La Sanguijuela",
+      "artist": "Diomedes Díaz - Franco Argüelles",
+      "album": "DE FRENTE",
+      "genre": "Puya",
+      "audioUrl": "La_Sanguijuela_Diomedes_Diaz_-_Franco_Arguelles.mp3",
+      "imageUrl": "3._DE_FRENTE_JSC_3542.JPG"
+    },
+    {
+      "id": "trk_f0a62em",
+      "title": "La Vieja Gabriela",
+      "artist": "Jorge Oñate - Los Hermanos López",
+      "album": "FESTIVAL VALLENATO",
+      "genre": "Puya",
+      "audioUrl": "La_Vieja_Gabriela_Jorge_Onate_-_Los_Hermanos_Lopez.mp3",
+      "imageUrl": "39.FESTIVAL_VALLENATO_JSC_3653.JPG"
+    },
+    {
+      "id": "trk_7nmmty5",
+      "title": "Diomedes Diaz - Nafer Durán",
+      "artist": "La Zoológica",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "La_Zoologica-_Diomedes_Diaz_-_Nafer_Duran.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_r8t2li2",
+      "title": "Los Vi Corriendo",
+      "artist": "Jorge Oñate & Cristian Camilo Peña",
+      "album": "FESTIVAL VALLENATO",
+      "genre": "Puya",
+      "audioUrl": "Los_Vi_Corriendo_Jorge_Onate_Cristian_Camilo_Pena.mp3",
+      "imageUrl": "39.FESTIVAL_VALLENATO_JSC_3653.JPG"
+    },
+    {
+      "id": "trk_lv3lt7t",
+      "title": "Me Dejó Solito",
+      "artist": "Jorge Celedón - Jimmy Zambrano",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Me_Dejo_Solito_Jorge_Celedon_-_Jimmy_Zambrano.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_y557ena",
+      "title": "Mi Negra",
+      "artist": "Miguel Durán",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Mi_Negra_Miguel_Duran.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_2u864je",
+      "title": "Mi Pedazo de Acordeón",
+      "artist": "Alejandro Durán",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Mi_Pedazo_de_Acordeon_Alejandro_Duran.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_pstrctc",
+      "title": "Mi Puya",
+      "artist": "Alejandro Durán",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Mi_Puya_Alejandro_Duran.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_lckg2u0",
+      "title": "Mi Testamento",
+      "artist": "Julio de la Ossa",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Mi_Testamento_Julio_de_la_Ossa.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_0vybxrl",
+      "title": "Puya a Mi Negra",
+      "artist": "JuanK Ricardo - Los K Morales",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Puya_a_Mi_Negra_JuanK_Ricardo_-_Los_K_Morales.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_dbrcn20",
+      "title": "Puya Internacional",
+      "artist": "Mr Vallenato",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Puya_Internacional_Mr_Vallenato.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_doxfkmn",
+      "title": "Puya La Controversia",
+      "artist": "Peter Manjarrés - Óscar Correa",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Puya_La_Controversia_Peter_Manjarres_-_Oscar_Correa.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_jx9izgz",
+      "title": "Puya Menor",
+      "artist": "Eibar Gutiérrez",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Puya_Menor_Eibar_Gutierrez.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_kzkbiwm",
+      "title": "Puya Piñalera",
+      "artist": "Lisandro Meza",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Puya_Pinalera_Lisandro_Meza.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_6x6iv8p",
+      "title": "Puya Puñetera",
+      "artist": "Aníbal Velásquez",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Puya_Punetera_Anibal_Velasquez.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_7h371qb",
+      "title": "Alfredo Gutiérrez y Su Conjunto",
+      "artist": "Puya Rebelde",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Puya_Rebelde_-_Alfredo_Gutierrez_y_Su_Conjunto.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_sn5t8nc",
+      "title": "Puya Saramuya",
+      "artist": "Cheché Rada",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Puya_Saramuya_Cheche_Rada.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_dtwbppe",
+      "title": "Todo Bien",
+      "artist": "Jorge Celedón - Jimmy Zambrano",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Todo_Bien_Jorge_Celedon_-_Jimmy_Zambrano.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_ch1kyvk",
+      "title": "Lisandro Meza",
+      "artist": "Upa ja",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Upa_ja_-_Lisandro_Meza.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_8ef38le",
+      "title": "Vente Pa_ Aca",
+      "artist": "Carlos Mario Zabaleta",
+      "album": null,
+      "genre": "Puya",
+      "audioUrl": "Vente_Pa_Aca_Carlos_Mario_Zabaleta.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_5hflle8",
+      "title": "Andrés Landero Y Su Conjunto",
+      "artist": "Abraham con La Botella",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "Abraham_con_La_Botella_-_Andres_Landero_Y_Su_Conjunto.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_rmrqgc7",
+      "title": "Alejo Durán",
+      "artist": "Alicia Adorada",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "Alicia_Adorada_-_Alejo_Duran.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_23zd1u4",
+      "title": "Alejo Durán",
+      "artist": "Altos del Rosario",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "Altos_del_Rosario-_Alejo_Duran.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_gduwk9g",
+      "title": "Amor Irresistible",
+      "artist": "Ivan Villazón",
+      "album": "CUARTO CONCIERTO VALLENATO",
+      "genre": "Sone",
+      "audioUrl": "Amor_Irresistible_Ivan_Villazon.mp3",
+      "imageUrl": "74._CUARTO_CONCIERTO_VALLENATO_JSC_3765.JPG"
+    },
+    {
+      "id": "trk_ajqjb6b",
+      "title": "Amparito",
+      "artist": "Julio Morillo y Egidio Cuadrado",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "Amparito_Julio_Morillo_y_Egidio_Cuadrado.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_7qdkioh",
+      "title": "Ay Hombe",
+      "artist": "Jorge Celedón & Jimmy Zambrano",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "Ay_Hombe_Jorge_Celedon_Jimmy_Zambrano.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_yam4zdo",
+      "title": "El Bautizo",
+      "artist": "Otto Serge - Rafael Ricardo",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "El_Bautizo_Otto_Serge_-_Rafael_Ricardo.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_z7h8rcg",
+      "title": "El Jardinero",
+      "artist": "Luis Enrique Martinez",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "El_Jardinero_Luis_Enrique_Martinez.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_a31lqer",
+      "title": "El Plan de Salas",
+      "artist": "_Beto_ Rada - Pino Manco",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "El_Plan_de_Salas_Beto_Rada_-_Pino_Manco.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_evlhv2s",
+      "title": "Alejandro Durán",
+      "artist": "Fidelina",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "Fidelina_-_Alejandro_Duran.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_a0xcux1",
+      "title": "La Interiorana",
+      "artist": "Calixto Ochoa",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "La_Interiorana_Calixto_Ochoa.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_agl4y39",
+      "title": "La Peleonera",
+      "artist": "Alejo Durán",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "La_Peleonera_Alejo_Duran.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_hqfwx2w",
+      "title": "Las Tres Mujeres",
+      "artist": "Hermanos Osorio",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "Las_Tres_Mujeres_Hermanos_Osorio.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_asj2f37",
+      "title": "Los Primeros Días",
+      "artist": "Miguel Durán",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "Los_Primeros_Dias_Miguel_Duran.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_gbhs0f3",
+      "title": "Los Betos",
+      "artist": "María Jesús",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "Maria_Jesus-_Los_Betos.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_y3db8mm",
+      "title": "Mujer Incomprensiva",
+      "artist": "Raúl Chiche Martinez & Miguel Herrera",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "Mujer_Incomprensiva_Raul_Chiche_Martinez_Miguel_Herrera.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_ujqt7aj",
+      "title": "Pena y Dolor",
+      "artist": "Julio Rojas - Ricardo Maestre",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "Pena_y_Dolor_Julio_Rojas_-_Ricardo_Maestre.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_gip7kas",
+      "title": "Pueblo Vallenato",
+      "artist": "Jorge Oñate",
+      "album": "NACÍ PARA CANTAR",
+      "genre": "Sone",
+      "audioUrl": "Pueblo_Vallenato_Jorge_Onate.mp3",
+      "imageUrl": "66._NACI_PARA_CANTAR_JSC_3741.JPG"
+    },
+    {
+      "id": "trk_sr55kn3",
+      "title": "Qué Bonita que es la Vida",
+      "artist": "Adaulfo Herrera &  Ramón Bertel",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "Que_Bonita_que_es_la_Vida_Adaulfo_Herrera_Ramon_Bertel.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_2ab4g1i",
+      "title": "Tristeza",
+      "artist": "Julio Rojas - Ricardo Maestre",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "Tristeza_Julio_Rojas_-_Ricardo_Maestre.mp3",
+      "imageUrl": null
+    },
+    {
+      "id": "trk_ty3t3rq",
+      "title": "Tuve un Amor",
+      "artist": "Freddy Sierra - Freddy Peralta",
+      "album": null,
+      "genre": "Sone",
+      "audioUrl": "Tuve_un_Amor_Freddy_Sierra_-_Freddy_Peralta.mp3",
+      "imageUrl": null
+    }
+  ]
+}

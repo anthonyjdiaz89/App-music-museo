@@ -1,0 +1,27 @@
+# Archivos grandes innecesarios para el build
+assets/covers/*.JPG
+assets/covers/*.jpg
+assets/audio/*.mp3
+dist/
+node_modules/
+.expo/
+.expo-shared/
+.git/
+.vscode/
+uploads/
+*.log
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Mantener solo lo esencial
+!assets/icon.png
+!assets/adaptive-icon.png
+!assets/splash.png
+!assets/logo.png
+!assets/figuras.png
+!assets/fondo.png
+!assets/fonts/
+!assets/data/

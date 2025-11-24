@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "Museo del Vallenato",
+    "slug": "museo-del-vallenato",
+    "version": "1.0.0",
+    "scheme": "museovallenato",
+    "orientation": "default",
+    "backgroundColor": "#121212",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#121212"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.museo.vallenato"
+    },
+    "android": {
+      "package": "com.museo.vallenato",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#121212"
+      },
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "android.permission.MODIFY_AUDIO_SETTINGS"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-font",
+      [
+        "expo-av",
+        {
+          "microphonePermission": false
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "bb15a597-6abb-4026-aa6b-8578bc6d0e71"
+      }
+    },
+    "owner": "anthonyjdiaz89"
+  }
+}
