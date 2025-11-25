@@ -1,7 +1,4 @@
-# Archivos grandes innecesarios para el build
-assets/covers/*.JPG
-assets/covers/*.jpg
-assets/audio/*.mp3
+# Ignorar archivos/carpetas que EAS puede regenerar o que no son necesarios
 dist/
 node_modules/
 .expo/
@@ -9,6 +6,9 @@ node_modules/
 .git/
 .vscode/
 uploads/
+android/
+ios/
+web-build/
 *.log
 .DS_Store
 .env.local
@@ -16,12 +16,5 @@ uploads/
 .env.test.local
 .env.production.local
 
-# Mantener solo lo esencial
-!assets/icon.png
-!assets/adaptive-icon.png
-!assets/splash.png
-!assets/logo.png
-!assets/figuras.png
-!assets/fondo.png
-!assets/fonts/
-!assets/data/
+# Mantener todos los assets usados por la app (incluye carátulas y audios)
+!assets/

@@ -8,7 +8,7 @@ import SyncView from '../features/library/components/admin/SyncView';
 
 type AdminView = 'albums' | 'tracks' | 'sync';
 
-export default function AdminScreen() {
+export default function AdminScreen({ navigation }: { navigation: any }) {
   const [currentView, setCurrentView] = useState<AdminView>('albums');
 
   const renderContent = () => {
@@ -36,7 +36,12 @@ export default function AdminScreen() {
       <View style={styles.contentContainer}>
         {/* Sidebar */}
         <View style={styles.sidebar}>
-          <Text style={styles.title}>Admin</Text>
+          <View style={styles.sidebarHeader}>
+            <Text style={styles.title}>Admin</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButton}>
+              <Text style={styles.backButtonText}>Volver</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.menu}>
             <MenuItem id="albums" label="ÁLBUMES" />
             <MenuItem id="tracks" label="CANCIONES" />
@@ -72,6 +77,12 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderRightColor: palette.border,
   },
+  sidebarHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: spacing.lg,
+  },
   main: {
     flex: 1,
     backgroundColor: palette.background,
@@ -82,7 +93,16 @@ const styles = StyleSheet.create({
   title: {
     ...typography.heading,
     color: palette.textPrimary,
-    marginBottom: spacing.lg,
+  },
+  backButton: {
+    paddingVertical: spacing.xs,
+    paddingHorizontal: spacing.sm,
+    borderRadius: 4,
+    backgroundColor: palette.primary,
+  },
+  backButtonText: {
+    ...typography.caption,
+    color: palette.textPrimary,
   },
   menu: {
     gap: spacing.sm,

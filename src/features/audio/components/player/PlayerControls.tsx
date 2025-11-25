@@ -49,25 +49,37 @@ export const PlayerControls: React.FC<PlayerControlsProps> = ({
   };
 
   return (
-    <>
-      <View style={styles.allControlsContainer}>
-        {/* Botón Retroceder 10s */}
-        <TouchableOpacity 
-          style={[styles.controlButton, !isLoaded && styles.controlButtonDisabled]}
-          onPress={onSeekBackward}
-          disabled={!isLoaded}
-        >
-          <Ionicons name="play-back" size={24} color="#ff206e" />
-        </TouchableOpacity>
+    <View style={styles.allControlsContainer}>
+      {/* Botón de modo de reproducción (OFF / UNO / TODO / ALEA) */}
+      <TouchableOpacity 
+        style={styles.modeButton}
+        onPress={onCycleMode}
+      >
+        <Ionicons 
+          name={getPlaybackModeIcon()}
+          size={18} 
+          color="#ff206e" 
+        />
+        <Text style={styles.modeText}>{getPlaybackModeText()}</Text>
+      </TouchableOpacity>
 
-        {/* Botón Anterior */}
-        <TouchableOpacity 
-          style={[styles.controlButton, !hasQueue && styles.controlButtonDisabled]}
-          onPress={onPrevious}
-          disabled={!hasQueue}
-        >
-          <Ionicons name="play-skip-back" size={28} color="#ff206e" />
-        </TouchableOpacity>
+      {/* Botón Retroceder 10s */}
+      <TouchableOpacity 
+        style={[styles.controlButton, !isLoaded && styles.controlButtonDisabled]}
+        onPress={onSeekBackward}
+        disabled={!isLoaded}
+      >
+        <Ionicons name="play-back" size={24} color="#ff206e" />
+      </TouchableOpacity>
+
+      {/* Botón Anterior */}
+      <TouchableOpacity 
+        style={[styles.controlButton, !hasQueue && styles.controlButtonDisabled]}
+        onPress={onPrevious}
+        disabled={!hasQueue}
+      >
+        <Ionicons name="play-skip-back" size={28} color="#ff206e" />
+      </TouchableOpacity>
 
         {/* Botón de play principal (grande) */}
         <TouchableOpacity 
@@ -84,39 +96,24 @@ export const PlayerControls: React.FC<PlayerControlsProps> = ({
           />
         </TouchableOpacity>
 
-        {/* Botón Siguiente */}
-        <TouchableOpacity 
-          style={[styles.controlButton, !hasQueue && styles.controlButtonDisabled]}
-          onPress={onNext}
-          disabled={!hasQueue}
-        >
-          <Ionicons name="play-skip-forward" size={28} color="#ff206e" />
-        </TouchableOpacity>
+      {/* Botón Siguiente */}
+      <TouchableOpacity 
+        style={[styles.controlButton, !hasQueue && styles.controlButtonDisabled]}
+        onPress={onNext}
+        disabled={!hasQueue}
+      >
+        <Ionicons name="play-skip-forward" size={28} color="#ff206e" />
+      </TouchableOpacity>
 
-        {/* Botón Avanzar 10s */}
-        <TouchableOpacity 
-          style={[styles.controlButton, !isLoaded && styles.controlButtonDisabled]}
-          onPress={onSeekForward}
-          disabled={!isLoaded}
-        >
-          <Ionicons name="play-forward" size={24} color="#ff206e" />
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.playbackModeContainer}>
-        <TouchableOpacity 
-          style={styles.modeButton}
-          onPress={onCycleMode}
-        >
-          <Ionicons 
-            name={getPlaybackModeIcon()}
-            size={20} 
-            color="#ff206e" 
-          />
-          <Text style={styles.modeText}>{getPlaybackModeText()}</Text>
-        </TouchableOpacity>
-      </View>
-    </>
+      {/* Botón Avanzar 10s */}
+      <TouchableOpacity 
+        style={[styles.controlButton, !isLoaded && styles.controlButtonDisabled]}
+        onPress={onSeekForward}
+        disabled={!isLoaded}
+      >
+        <Ionicons name="play-forward" size={24} color="#ff206e" />
+      </TouchableOpacity>
+    </View>
   );
 };
 
@@ -161,18 +158,15 @@ const styles = StyleSheet.create({
   playButtonDisabled: {
     opacity: 0.5,
   },
-  playbackModeContainer: {
-    alignItems: 'center',
-    marginTop: spacing.lg,
-  },
   modeButton: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: spacing.xs,
-    paddingHorizontal: spacing.lg,
-    paddingVertical: spacing.sm,
+    width: 80,
+    height: 56,
+    borderRadius: 28,
     backgroundColor: 'rgba(255, 255, 255, 0.15)',
-    borderRadius: 20,
     borderWidth: 2,
     borderColor: '#ff206e',
     shadowColor: '#000',

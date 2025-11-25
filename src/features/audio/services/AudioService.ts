@@ -142,6 +142,13 @@ class AudioService {
       const audioSource = this.getAudioSource(track);
       await newSound.loadAsync(audioSource);
 
+      // Aplicar volumen global actual al nuevo sonido
+      try {
+        await newSound.setVolumeAsync(this.state.volume);
+      } catch (e) {
+        console.warn('[AudioService] No se pudo aplicar volumen inicial:', e);
+      }
+
       this.sound = newSound;
       this.updateState({
         currentTrack: track,
