@@ -69,7 +69,7 @@ export default function HomeScreen({ navigation }: any) {
     };
   }, [fabPulse]);
 
-  const { items, loading } = useLibrary(); // con loading se puede hacer una pantalla de carga
+  const { items } = useLibrary(); // se puede extraer loading para hacer una pantalla de carga
   const debouncedQuery = useDebouncedValue(searchQuery);
   const filteredItems = useFilteredTracks(items, debouncedQuery, selectedGenre);
 
@@ -284,7 +284,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: palette.textPrimary,
     // @ts-ignore-next-line
-    outlineStyle: "none", // this is only for web
+    outlineStyle: "none", // esto es para web, quita el outline al hacer focus
   },
   filterRow: {
     flexDirection: "row",
