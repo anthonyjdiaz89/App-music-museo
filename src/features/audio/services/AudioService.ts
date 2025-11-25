@@ -3,15 +3,15 @@
  * Singleton que maneja toda la lógica de reproducción de audio
  */
 
-import { Audio } from 'expo-av';
-import { Track } from '../../../core/domain/types';
-import { audioMap } from '../../../../assets/audio/map';
+import { Audio } from "expo-av";
+import { Track } from "../../../core/domain/types";
+import { audioMap } from "../../../../assets/audio/map";
 
 export enum PlaybackMode {
-  NORMAL = 'NORMAL',
-  REPEAT_ONE = 'REPEAT_ONE',
-  REPEAT_ALL = 'REPEAT_ALL',
-  SHUFFLE = 'SHUFFLE',
+  NORMAL = "NORMAL",
+  REPEAT_ONE = "REPEAT_ONE",
+  REPEAT_ALL = "REPEAT_ALL",
+  SHUFFLE = "SHUFFLE",
 }
 
 export interface AudioState {
@@ -72,9 +72,9 @@ class AudioService {
         shouldDuckAndroid: true,
         playThroughEarpieceAndroid: false,
       });
-      console.log('[AudioService] Audio initialized');
+      console.log("[AudioService] Audio initialized");
     } catch (error) {
-      console.error('[AudioService] Error initializing audio:', error);
+      console.error("[AudioService] Error initializing audio:", error);
     }
   }
 
@@ -114,7 +114,10 @@ class AudioService {
   /**
    * Cargar y reproducir un track
    */
-  public async playTrack(track: Track, autoPlay: boolean = true): Promise<void> {
+  public async playTrack(
+    track: Track,
+    autoPlay: boolean = true
+  ): Promise<void> {
     try {
       // Detener audio actual si existe
       await this.cleanup();
@@ -156,8 +159,9 @@ class AudioService {
 
       console.log(`[AudioService] Track loaded: ${track.title}`);
     } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : 'Error desconocido';
-      console.error('[AudioService] Error loading track:', error);
+      const errorMessage =
+        error instanceof Error ? error.message : "Error desconocido";
+      console.error("[AudioService] Error loading track:", error);
       this.updateState({
         error: `Error al cargar el audio: ${errorMessage}`,
         isLoaded: false,
@@ -186,9 +190,11 @@ class AudioService {
     if (track.audioUrl && /^https?:\/\//i.test(track.audioUrl)) {
       return { uri: track.audioUrl };
     }
-    
-    console.log(`[AudioService] Track ID not found in bundle or cache: ${track.id}`);
-    throw new Error('No audio source found for track');
+
+    console.log(
+      `[AudioService] Track ID not found in bundle or cache: ${track.id}`
+    );
+    throw new Error("No audio source found for track");
   }
 
   /**
@@ -196,16 +202,16 @@ class AudioService {
    */
   public async play(): Promise<void> {
     if (!this.sound || !this.state.isLoaded) {
-      throw new Error('Audio no está listo para reproducir');
+      throw new Error("Audio no está listo para reproducir");
     }
 
     try {
       await this.sound.playAsync();
       this.updateState({ isPlaying: true, error: null });
-      console.log('[AudioService] Playing');
+      console.log("[AudioService] Playing");
     } catch (error) {
-      console.error('[AudioService] Error playing:', error);
-      this.updateState({ error: 'Error al reproducir' });
+      console.error("[AudioService] Error playing:", error);
+      this.updateState({ error: "Error al reproducir" });
       throw error;
     }
   }
@@ -215,16 +221,16 @@ class AudioService {
    */
   public async pause(): Promise<void> {
     if (!this.sound || !this.state.isLoaded) {
-      throw new Error('Audio no está listo para pausar');
+      throw new Error("Audio no está listo para pausar");
     }
 
     try {
       await this.sound.pauseAsync();
       this.updateState({ isPlaying: false, error: null });
-      console.log('[AudioService] Paused');
+      console.log("[AudioService] Paused");
     } catch (error) {
-      console.error('[AudioService] Error pausing:', error);
-      this.updateState({ error: 'Error al pausar' });
+      console.error("[AudioService] Error pausing:", error);
+      this.updateState({ error: "Error al pausar" });
       throw error;
     }
   }
@@ -253,7 +259,7 @@ class AudioService {
       duration: 0,
       error: null,
     });
-    console.log('[AudioService] Stopped');
+    console.log("[AudioService] Stopped");
   }
 
   /**
@@ -261,7 +267,7 @@ class AudioService {
    */
   public async seekTo(positionMillis: number): Promise<void> {
     if (!this.sound || !this.state.isLoaded) {
-      throw new Error('Audio no está listo para buscar');
+      throw new Error("Audio no está listo para buscar");
     }
 
     try {
@@ -269,7 +275,7 @@ class AudioService {
       this.updateState({ position: positionMillis });
       console.log(`[AudioService] Seeked to ${positionMillis}ms`);
     } catch (error) {
-      console.error('[AudioService] Error seeking:', error);
+      console.error("[AudioService] Error seeking:", error);
       throw error;
     }
   }
@@ -280,16 +286,16 @@ class AudioService {
   public async setVolume(volume: number): Promise<void> {
     // Validar rango
     const clampedVolume = Math.max(0, Math.min(1, volume));
-    
+
     if (this.sound) {
       try {
         await this.sound.setVolumeAsync(clampedVolume);
         console.log(`[AudioService] Volume set to ${clampedVolume}`);
       } catch (error) {
-        console.error('[AudioService] Error setting volume:', error);
+        console.error("[AudioService] Error setting volume:", error);
       }
     }
-    
+
     this.updateState({ volume: clampedVolume });
   }
 
@@ -301,7 +307,9 @@ class AudioService {
       queue: tracks,
       currentIndex: startIndex,
     });
-    console.log(`[AudioService] Queue set with ${tracks.length} tracks, starting at index ${startIndex}`);
+    console.log(
+      `[AudioService] Queue set with ${tracks.length} tracks, starting at index ${startIndex}`
+    );
   }
 
   /**
@@ -311,7 +319,7 @@ class AudioService {
     const { queue, currentIndex, playbackMode } = this.state;
 
     if (queue.length === 0) {
-      console.log('[AudioService] No queue available');
+      console.log("[AudioService] No queue available");
       return;
     }
 
@@ -324,7 +332,7 @@ class AudioService {
       if (playbackMode === PlaybackMode.REPEAT_ALL) {
         nextIndex = 0;
       } else {
-        console.log('[AudioService] End of queue');
+        console.log("[AudioService] End of queue");
         await this.stop();
         return;
       }
@@ -341,7 +349,7 @@ class AudioService {
     const { queue, currentIndex, position } = this.state;
 
     if (queue.length === 0) {
-      console.log('[AudioService] No queue available');
+      console.log("[AudioService] No queue available");
       return;
     }
 
@@ -395,7 +403,7 @@ class AudioService {
         await this.sound.unloadAsync();
         this.sound = null;
       } catch (error) {
-        console.error('[AudioService] Error cleaning up:', error);
+        console.error("[AudioService] Error cleaning up:", error);
       }
     }
   }
@@ -406,7 +414,7 @@ class AudioService {
   public async destroy(): Promise<void> {
     await this.cleanup();
     this.listeners.clear();
-    console.log('[AudioService] Destroyed');
+    console.log("[AudioService] Destroyed");
   }
 }
 

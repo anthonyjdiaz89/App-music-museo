@@ -3,9 +3,12 @@
  * Usa AudioService centralizado para toda la lógica de audio
  */
 
-import React, { createContext, useContext, useState, useEffect } from 'react';
-import { Track } from '../../core/domain/types';
-import AudioService, { PlaybackMode, AudioState } from './services/AudioService';
+import React, { createContext, useContext, useState, useEffect } from "react";
+import { Track } from "../../core/domain/types";
+import AudioService, {
+  PlaybackMode,
+  AudioState,
+} from "./services/AudioService";
 
 interface AudioContextType extends AudioState {
   playTrack: (track: Track) => Promise<void>;
@@ -55,7 +58,8 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     seekTo: (position: number) => audioService.seekTo(position),
     playNext: () => audioService.playNext(),
     playPrevious: () => audioService.playPrevious(),
-    setQueue: (tracks: Track[], startIndex?: number) => audioService.setQueue(tracks, startIndex),
+    setQueue: (tracks: Track[], startIndex?: number) =>
+      audioService.setQueue(tracks, startIndex),
     setPlaybackMode: (mode: PlaybackMode) => audioService.setPlaybackMode(mode),
     setVolume: (volume: number) => audioService.setVolume(volume),
   };
@@ -70,10 +74,10 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 export function useAudio() {
   const context = useContext(AudioContext);
   if (context === undefined) {
-    throw new Error('useAudio must be used within an AudioProvider');
+    throw new Error("useAudio must be used within an AudioProvider");
   }
   return context;
 }
 
 // Re-export PlaybackMode for convenience
-export { PlaybackMode } from './services/AudioService';
+export { PlaybackMode } from "./services/AudioService";

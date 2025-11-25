@@ -1,4 +1,4 @@
-export type Genre = 'Merengue' | 'Paseo' | 'Puya' | 'Son';
+export type Genre = "Merengue" | "Paseo" | "Puya" | "Son";
 
 export interface Track {
   id: string;
