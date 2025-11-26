@@ -3,21 +3,19 @@
  * Diseño minimalista con controles grandes para pantallas táctiles
  */
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
   StyleSheet,
-  Animated,
   ImageBackground,
   useWindowDimensions,
   ScrollView,
 } from "react-native";
 import { BlurView } from "expo-blur";
 import bundledLibrary from "../../assets/data/library.json";
-import { Track } from "../core/domain/types";
-import { palette, spacing } from "../core/config/theme";
-import { loadLocalLibrary } from "../features/library/services/sync";
+import { Genre, Track } from "../core/domain/types";
+import { palette, shadows, spacing } from "../core/config/theme";
 import { useAudio, PlaybackMode } from "../features/audio/AudioContext";
 
 import { getCoverSource } from "../../assets/covers/coverMap";
@@ -29,6 +27,8 @@ import { PlayerInfo } from "../features/audio/components/player/PlayerInfo";
 import { PlayerProgressBar } from "../features/audio/components/player/PlayerProgressBar";
 import { PlayerControls } from "../features/audio/components/player/PlayerControls";
 import { PlayerVolume } from "../features/audio/components/player/PlayerVolume";
+import { usePulseAnimation } from "@src/shared/animations/usePulseAnimation";
+import { useLibrary } from "@src/features/library/hooks/useLibrary";
 
 interface PlayerScreenProps {
   route: {
@@ -69,33 +69,34 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
     setVolume,
   } = useAudio();
 
-  const pulseAnim = useRef(new Animated.Value(1)).current;
+  const { items: rawLibraryItems, loading } = useLibrary();
+  const normalizedItems = useMemo(
+    () =>
+      (loading ? bundledLibrary.items : rawLibraryItems).map((t) => ({
+        ...t,
+        genre: t.genre as Genre,
+      })),
+    [loading, rawLibraryItems]
+  );
 
   useEffect(() => {
-    (async () => {
-      const localLib = await loadLocalLibrary();
-      const allTracks = localLib?.items || (bundledLibrary.items as Track[]);
-      const localTrack = allTracks.find((t: Track) => t.id === trackId);
+    if (loading) return;
 
-      if (localTrack) {
-        setTrack(localTrack);
-      }
+    const localTrack = normalizedItems.find((t) => t.id === trackId);
+    if (!localTrack) return;
 
-      // Configurar la cola completa de reproducción
-      const currentTrackIndex = allTracks.findIndex(
-        (t: Track) => t.id === trackId
-      );
-      if (currentTrackIndex !== -1) {
-        setQueue(allTracks, currentTrackIndex);
-      }
+    setTrack(localTrack);
 
-      const current = localTrack || track;
-      if (current && (!currentTrack || currentTrack.id !== trackId)) {
-        // Solo reproducir si no es la misma canción que está sonando
-        await playTrack(current);
-      }
-    })();
-  }, [trackId]);
+    const currentTrackIndex = normalizedItems.findIndex(
+      (t) => t.id === trackId
+    );
+    if (currentTrackIndex !== -1) setQueue(normalizedItems, currentTrackIndex);
+
+    const shouldPlay =
+      !currentTrack || currentTrack.id !== localTrack.id || !isLoaded;
+
+    if (shouldPlay) playTrack(localTrack);
+  }, [loading, trackId, normalizedItems]);
 
   // Funciones helper para controles avanzados
   const handleSeekForward = () => {
@@ -121,26 +122,7 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
   };
 
   // Animación de pulso cuando está reproduciendo
-  useEffect(() => {
-    if (isPlaying && currentTrack) {
-      Animated.loop(
-        Animated.sequence([
-          Animated.timing(pulseAnim, {
-            toValue: 1.1,
-            duration: 800,
-            useNativeDriver: true,
-          }),
-          Animated.timing(pulseAnim, {
-            toValue: 1,
-            duration: 800,
-            useNativeDriver: true,
-          }),
-        ])
-      ).start();
-    } else {
-      pulseAnim.setValue(1);
-    }
-  }, [isPlaying, currentTrack]);
+  const pulseAnim = usePulseAnimation(isPlaying ? 1.04 : 1); // se reutiliza el hook
 
   if (!track && !currentTrack) {
     return (
@@ -216,7 +198,11 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
 
             <View style={styles.progressRow}>
               <View style={styles.progressSection}>
-                <PlayerProgressBar position={position} duration={duration} />
+                <PlayerProgressBar
+                  position={position}
+                  duration={duration}
+                  onSeek={seekTo}
+                />
               </View>
 
               <View style={styles.timelineVolumeContainer}>
@@ -235,7 +221,7 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
               <PlayerControls
                 isPlaying={isPlaying}
                 isLoaded={isLoaded}
-                hasQueue={queue.length > 0}
+                hasQueue={!!queue.length}
                 playbackMode={playbackMode}
                 onPlayPause={togglePlayPause}
                 onNext={playNext}

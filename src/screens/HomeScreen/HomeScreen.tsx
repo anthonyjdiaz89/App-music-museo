@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   View,
   FlatList,
@@ -9,6 +9,7 @@ import {
   Text,
   Platform,
 } from "react-native";
+import Animated from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
 import { palette, spacing } from "../../core/config/theme";
 import { Track, Genre } from "../../core/domain/types";
@@ -17,18 +18,12 @@ import { GENRES } from "../../core/config/constants/genres";
 import { TrackCard } from "../../shared/components/TrackCard";
 import { MiniPlayer } from "../../shared/components/MiniPlayer";
 import { AppHeader } from "../../shared/components/AppHeader";
-import Animated, {
-  FadeInDown,
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withTiming,
-  Easing,
-  cancelAnimation,
-} from "react-native-reanimated";
 import { useFilteredTracks } from "./hooks/useFilteredTracks";
 import { useDebouncedValue } from "./hooks/useDebouncedValue";
 import { useLibrary } from "../../features/library/hooks/useLibrary";
+import { usePulseAnimation } from "@src/shared/animations/usePulseAnimation";
+import { GENRE_ICON_MAP } from "@src/features/audio/genreIconMap";
+import { fadeSpring } from "@src/shared/animations/animations";
 
 export default function HomeScreen({ navigation }: any) {
   const [searchQuery, setSearchQuery] = useState("");
@@ -43,12 +38,6 @@ export default function HomeScreen({ navigation }: any) {
     position,
     duration,
   } = useAudio();
-  const fabPulse = useSharedValue(1);
-  const fabAnimatedStyle = useAnimatedStyle(() => ({
-    transform: [{ scale: fabPulse.value }],
-    shadowRadius: 8 + (fabPulse.value - 1) * 30,
-    shadowOpacity: 0.2 + (fabPulse.value - 1) * 1.5,
-  }));
 
   const numColumns = viewMode === "list" ? 1 : width >= 768 ? 4 : 2;
 
@@ -57,19 +46,8 @@ export default function HomeScreen({ navigation }: any) {
     navigation.navigate("Player", { trackId: track.id });
   };
 
-  useEffect(() => {
-    fabPulse.value = withRepeat(
-      withTiming(1.05, { duration: 1800, easing: Easing.inOut(Easing.quad) }),
-      -1,
-      true
-    );
-    return () => {
-      cancelAnimation(fabPulse);
-      fabPulse.value = 1;
-    };
-  }, [fabPulse]);
-
-  const { items } = useLibrary(); // se puede extraer loading para hacer una pantalla de carga
+  const fabAnimatedStyle = usePulseAnimation();
+  const { items } = useLibrary(); // se puede extraer {loading} para hacer una pantalla de carga
   const debouncedQuery = useDebouncedValue(searchQuery);
   const filteredItems = useFilteredTracks(items, debouncedQuery, selectedGenre);
 
@@ -79,13 +57,13 @@ export default function HomeScreen({ navigation }: any) {
 
   return (
     <View style={styles.container}>
-      <Animated.View entering={FadeInDown.delay(40).springify().damping(14)}>
+      <Animated.View entering={fadeSpring(40, 14)}>
         <AppHeader trackCount={filteredItems.length} />
       </Animated.View>
 
       <Animated.View
         style={styles.searchContainer}
-        entering={FadeInDown.delay(80).springify().damping(16)}
+        entering={fadeSpring(80, 16)}
       >
         <Ionicons
           name="search"
@@ -102,10 +80,7 @@ export default function HomeScreen({ navigation }: any) {
         />
       </Animated.View>
 
-      <Animated.View
-        style={styles.filterRow}
-        entering={FadeInDown.delay(120).springify().damping(16)}
-      >
+      <Animated.View style={styles.filterRow} entering={fadeSpring(120, 16)}>
         <View style={styles.filterContainer}>
           <TouchableOpacity
             style={[
@@ -131,14 +106,7 @@ export default function HomeScreen({ navigation }: any) {
           </TouchableOpacity>
 
           {GENRES.map((genre) => {
-            const iconName =
-              genre === "Merengue"
-                ? "musical-note"
-                : genre === "Paseo"
-                ? "musical-notes"
-                : genre === "Puya"
-                ? "pulse"
-                : "disc";
+            const iconName = GENRE_ICON_MAP[genre];
 
             return (
               <TouchableOpacity
