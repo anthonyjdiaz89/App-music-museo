@@ -20,7 +20,6 @@ import {
 import WelcomeScreen from "./src/screens/WelcomeScreen";
 import HomeScreen from "./src/screens/HomeScreen/HomeScreen";
 import PlayerScreen from "./src/screens/PlayerScreen";
-import SearchScreen from "./src/screens/SearchScreen";
 import SyncScreen from "./src/screens/SyncScreen";
 import AdminScreen from "./src/screens/AdminScreen";
 import { palette } from "./src/core/config/theme";
@@ -119,7 +118,6 @@ export default function App() {
           >
             <Stack.Screen name="Welcome" component={WelcomeScreen} />
             <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen name="Search" component={SearchScreen} />
             <Stack.Screen name="Player" component={PlayerScreen} />
             <Stack.Screen name="Sync" component={SyncScreen} />
             <Stack.Screen name="Admin" component={AdminScreen} />
