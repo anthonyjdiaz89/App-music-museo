@@ -3,45 +3,47 @@
  * Panel institucional con estadísticas y botón grande de sincronización
  */
 
-import React, { useCallback, useState, useEffect } from 'react';
-import { View, ScrollView, StyleSheet, Platform } from 'react-native';
-import { palette, spacing } from '../core/config/theme';
-import { fetchManifest, getLocalVersion, loadLocalLibrary } from '../features/library/services/sync';
-import bundledLibrary from '../../assets/data/library.json';
-import { useCatalogSync } from '../shared/hooks/useCatalogSync';
+import { useCallback, useState, useEffect } from "react";
+import { View, ScrollView, StyleSheet, Platform } from "react-native";
+import { palette, spacing } from "../core/config/theme";
+import { loadLocalLibrary } from "../features/library/services/sync";
+import bundledLibrary from "../../assets/data/library.json";
+import { useCatalogSync } from "../shared/hooks/useCatalogSync";
 
-const ENABLE_REMOTE_SYNC = process.env.EXPO_PUBLIC_ENABLE_AUTO_SYNC === 'true';
+const ENABLE_REMOTE_SYNC = process.env.EXPO_PUBLIC_ENABLE_AUTO_SYNC === "true";
 
 // Components
-import { SyncHeader } from '../features/library/components/sync/SyncHeader';
-import { SyncInfo } from '../features/library/components/sync/SyncInfo';
-import { SyncButton } from '../features/library/components/sync/SyncButton';
-import { SyncStats } from '../features/library/components/sync/SyncStats';
-import { SyncStatus } from '../features/library/components/sync/SyncStatus';
+import { SyncHeader } from "../features/library/components/sync/SyncHeader";
+import { SyncInfo } from "../features/library/components/sync/SyncInfo";
+import { SyncButton } from "../features/library/components/sync/SyncButton";
+import { SyncStats } from "../features/library/components/sync/SyncStats";
+import { SyncStatus } from "../features/library/components/sync/SyncStatus";
 
 export default function SyncScreen({ navigation }: any) {
   const [totalAudios, setTotalAudios] = useState(0);
   const [syncedAudios, setSyncedAudios] = useState(0);
   const [pendingAudios, setPendingAudios] = useState(0);
-  
-  const { 
-    isSyncing, 
-    lastSyncDate, 
-    error, 
-    progress, 
-    syncCatalog, 
-    formatLastSync 
-  } = useCatalogSync();
 
-  const logs: string[] = progress ? [progress] : error ? [`Error: ${error}`] : [];
-  const status = isSyncing ? 'Sincronizando...' : error ? 'Error en sincronización' : '';
+  const { isSyncing, error, progress, syncCatalog, formatLastSync } =
+    useCatalogSync();
+
+  const logs: string[] = progress
+    ? [progress]
+    : error
+    ? [`Error: ${error}`]
+    : [];
+  const status = isSyncing
+    ? "Sincronizando..."
+    : error
+    ? "Error en sincronización"
+    : "";
 
   useEffect(() => {
     loadStats();
   }, [isSyncing]); // Recargar stats después de sincronizar
 
   const loadStats = async () => {
-    const local = Platform.OS === 'web' ? null : await loadLocalLibrary();
+    const local = Platform.OS === "web" ? null : await loadLocalLibrary();
     const items = local?.items || bundledLibrary.items;
     const total = items.length;
     const synced = items.filter((t: any) => t.localAudioPath).length;
@@ -52,8 +54,8 @@ export default function SyncScreen({ navigation }: any) {
     setPendingAudios(pending);
   };
 
-  const run = useCallback(async() => {
-    if (Platform.OS === 'web') {
+  const run = useCallback(async () => {
+    if (Platform.OS === "web") {
       return;
     }
     if (!ENABLE_REMOTE_SYNC) {
@@ -69,13 +71,13 @@ export default function SyncScreen({ navigation }: any) {
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <SyncInfo lastSync={formatLastSync()} />
 
-        <SyncButton 
-          busy={isSyncing} 
-          onPress={run} 
-          disabled={Platform.OS === 'web' || !ENABLE_REMOTE_SYNC} 
+        <SyncButton
+          busy={isSyncing}
+          onPress={run}
+          disabled={Platform.OS === "web" || !ENABLE_REMOTE_SYNC}
         />
 
-        <SyncStats 
+        <SyncStats
           total={totalAudios}
           synced={syncedAudios}
           pending={pendingAudios}

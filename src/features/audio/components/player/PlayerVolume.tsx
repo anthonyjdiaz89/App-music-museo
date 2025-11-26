@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Slider from "@react-native-community/slider";
 import { spacing } from "../../../../core/config/theme";
-import { useSharedValue } from "react-native-reanimated";
 
 interface PlayerVolumeProps {
   volume: number;

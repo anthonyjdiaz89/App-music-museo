@@ -1,31 +1,46 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Platform } from 'react-native';
-import { palette, typography, spacing } from '../core/config/theme';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import TracksView from '../features/library/components/admin/TracksView';
-import AlbumsView from '../features/library/components/admin/AlbumsView';
-import SyncView from '../features/library/components/admin/SyncView';
+import { useState } from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
+import { palette, typography, spacing } from "../core/config/theme";
+import { SafeAreaView } from "react-native-safe-area-context";
+import TracksView from "../features/library/components/admin/TracksView";
+import AlbumsView from "../features/library/components/admin/AlbumsView";
+import SyncView from "../features/library/components/admin/SyncView";
 
-type AdminView = 'albums' | 'tracks' | 'sync';
+type AdminView = "albums" | "tracks" | "sync";
 
 export default function AdminScreen({ navigation }: { navigation: any }) {
-  const [currentView, setCurrentView] = useState<AdminView>('albums');
+  const [currentView, setCurrentView] = useState<AdminView>("albums");
 
   const renderContent = () => {
     switch (currentView) {
-      case 'albums': return <AlbumsView />;
-      case 'tracks': return <TracksView />;
-      case 'sync': return <SyncView />;
-      default: return <AlbumsView />;
+      case "albums":
+        return <AlbumsView />;
+      case "tracks":
+        return <TracksView />;
+      case "sync":
+        return <SyncView />;
+      default:
+        return <AlbumsView />;
     }
   };
 
-  const MenuItem = ({ id, label }: { id: AdminView, label: string }) => (
-    <TouchableOpacity 
+  const MenuItem = ({ id, label }: { id: AdminView; label: string }) => (
+    <TouchableOpacity
       style={[styles.menuItem, currentView === id && styles.menuItemActive]}
       onPress={() => setCurrentView(id)}
     >
-      <Text style={[styles.menuItemText, currentView === id && styles.menuItemTextActive]}>
+      <Text
+        style={[
+          styles.menuItemText,
+          currentView === id && styles.menuItemTextActive,
+        ]}
+      >
         {label}
       </Text>
     </TouchableOpacity>
@@ -38,7 +53,10 @@ export default function AdminScreen({ navigation }: { navigation: any }) {
         <View style={styles.sidebar}>
           <View style={styles.sidebarHeader}>
             <Text style={styles.title}>Admin</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.backButton}>
+            <TouchableOpacity
+              onPress={() => navigation.navigate("Home")}
+              style={styles.backButton}
+            >
               <Text style={styles.backButtonText}>Volver</Text>
             </TouchableOpacity>
           </View>
@@ -68,7 +86,7 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   sidebar: {
     width: 200,
@@ -78,9 +96,9 @@ const styles = StyleSheet.create({
     borderRightColor: palette.border,
   },
   sidebarHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: spacing.lg,
   },
   main: {
@@ -121,7 +139,7 @@ const styles = StyleSheet.create({
   },
   menuItemTextActive: {
     color: palette.textPrimary,
-    fontFamily: 'Archivo-SemiBold',
+    fontFamily: "Archivo-SemiBold",
   },
   header: {
     ...typography.subheading,
@@ -135,7 +153,7 @@ const styles = StyleSheet.create({
   apiInfo: {
     ...typography.caption,
     color: palette.textTertiary,
-    marginTop: 'auto',
+    marginTop: "auto",
     paddingTop: spacing.lg,
   },
 });

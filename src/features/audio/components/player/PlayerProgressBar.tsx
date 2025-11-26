@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  PanResponder,
-  GestureResponderEvent,
-  PanResponderGestureState,
-} from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { spacing } from "../../../../core/config/theme";
 import { formatTime } from "../../../../shared/utils/time";
 

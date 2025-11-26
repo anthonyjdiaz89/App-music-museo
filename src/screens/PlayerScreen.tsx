@@ -3,7 +3,7 @@
  * Diseño minimalista con controles grandes para pantallas táctiles
  */
 
-import React, { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   View,
   Text,
@@ -15,7 +15,7 @@ import {
 import { BlurView } from "expo-blur";
 import bundledLibrary from "../../assets/data/library.json";
 import { Genre, Track } from "../core/domain/types";
-import { palette, shadows, spacing } from "../core/config/theme";
+import { palette, spacing } from "../core/config/theme";
 import { useAudio, PlaybackMode } from "../features/audio/AudioContext";
 
 import { getCoverSource } from "../../assets/covers/coverMap";
