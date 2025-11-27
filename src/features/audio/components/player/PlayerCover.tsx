@@ -10,7 +10,7 @@ import {
 import Animated from "react-native-reanimated";
 import { Ionicons } from "@expo/vector-icons";
 import { spacing } from "../../../../core/config/theme";
-import { getCoverSource } from "../../../../../assets/covers/coverMap";
+import { useCoverSource } from "@src/shared/hooks/useCoverSource";
 
 interface PlayerCoverProps {
   trackId: string;
@@ -25,8 +25,8 @@ export const PlayerCover: React.FC<PlayerCoverProps> = ({
   isSpeakerMode,
   onToggleSpeakerMode,
 }) => {
-  const coverSource = getCoverSource(trackId);
   const { width, height } = useWindowDimensions();
+  const coverSource = useCoverSource(trackId);
   const isLandscape = width > height;
 
   // Ajustar tamaño de cover según orientación

@@ -3,7 +3,7 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Track } from "../../core/domain/types";
 import { palette, spacing } from "../../core/config/theme";
-import { getCoverSource } from "../../../assets/covers/coverMap";
+import { useCoverSource } from "../hooks/useCoverSource";
 
 interface MiniPlayerProps {
   track: Track;
@@ -23,7 +23,7 @@ export const MiniPlayer: React.FC<MiniPlayerProps> = ({
   onPress,
 }) => {
   const progress = duration > 0 ? position / duration : 0;
-  const coverSource = getCoverSource(track.id);
+  const coverSource = useCoverSource(track.id);
 
   const formatTime = (millis: number) => {
     const totalSeconds = Math.floor(millis / 1000);

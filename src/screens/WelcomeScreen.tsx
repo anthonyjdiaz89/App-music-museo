@@ -21,18 +21,15 @@ export default function WelcomeScreen({ navigation }: WelcomeScreenProps) {
   const [pinValue, setPinValue] = useState("");
 
   const goHome = () => navigation.navigate("Home");
-
   const handleSettingsPress = () => {
     console.log("[Welcome] settings pressed");
     settingsTapCount.current += 1;
-
     if (settingsTapCount.current >= 3) {
       settingsTapCount.current = 0;
       setPinValue("");
       setPinModalVisible(true);
     }
   };
-
   const handleConfirmPin = () => {
     const expectedPin = "99151";
     if (pinValue === expectedPin) {
@@ -42,7 +39,6 @@ export default function WelcomeScreen({ navigation }: WelcomeScreenProps) {
       Alert.alert("PIN incorrecto", "El PIN ingresado no es válido");
     }
   };
-
   return (
     <View style={styles.root}>
       <View style={styles.pattern}>
@@ -60,7 +56,6 @@ export default function WelcomeScreen({ navigation }: WelcomeScreenProps) {
       >
         <Text style={styles.settingsIcon}>⚙️</Text>
       </TouchableOpacity>
-
       <View style={styles.center}>
         <Image
           source={require("../../assets/logo.png")}
@@ -84,7 +79,6 @@ export default function WelcomeScreen({ navigation }: WelcomeScreenProps) {
           Centro Cultural y de Conexiones de la Música Vallenata
         </Text>
       </View>
-
       {/* Modal para PIN de admin (web y nativo) */}
       <Modal
         visible={pinModalVisible}

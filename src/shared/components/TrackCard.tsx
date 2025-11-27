@@ -5,7 +5,7 @@ import { Track } from "../../core/domain/types";
 import { palette, spacing } from "../../core/config/theme";
 import { GENRE_COLORS, GENRE_ICONS } from "../../core/config/constants/genres";
 import Animated, { FadeInDown, FadeInUp } from "react-native-reanimated";
-import { getCoverSource } from "../../../assets/covers/coverMap";
+import { useCoverSource } from "../hooks/useCoverSource";
 
 interface TrackCardProps {
   item: Track;
@@ -25,7 +25,7 @@ export const TrackCard: React.FC<TrackCardProps> = ({
 }) => {
   const bgColor = GENRE_COLORS[item.genre] || "#F5F5F5";
   const icon = GENRE_ICONS[item.genre] || "♪";
-  const imageSource = getCoverSource(item.id);
+  const imageSource = useCoverSource(item.id);
   const [imageError, setImageError] = React.useState(false);
 
   const entering = (viewMode === "list" ? FadeInDown : FadeInUp)

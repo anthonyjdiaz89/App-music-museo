@@ -18,8 +18,6 @@ import { Genre, Track } from "../core/domain/types";
 import { palette, spacing } from "../core/config/theme";
 import { useAudio, PlaybackMode } from "../features/audio/AudioContext";
 
-import { getCoverSource } from "../../assets/covers/coverMap";
-
 // Components
 import { PlayerHeader } from "../features/audio/components/player/PlayerHeader";
 import { PlayerCover } from "../features/audio/components/player/PlayerCover";
@@ -29,6 +27,7 @@ import { PlayerControls } from "../features/audio/components/player/PlayerContro
 import { PlayerVolume } from "../features/audio/components/player/PlayerVolume";
 import { usePulseAnimation } from "@src/shared/animations/usePulseAnimation";
 import { useLibrary } from "@src/features/library/hooks/useLibrary";
+import { useCoverSource } from "@src/shared/hooks/useCoverSource";
 
 interface PlayerScreenProps {
   route: {
@@ -133,7 +132,7 @@ export default function PlayerScreen({ route, navigation }: PlayerScreenProps) {
   }
 
   const effectiveTrack = currentTrack || track;
-  const coverSource = effectiveTrack ? getCoverSource(effectiveTrack.id) : null;
+  const coverSource = useCoverSource(effectiveTrack?.id || "");
 
   return (
     <View style={styles.container}>
