@@ -1,4 +1,4 @@
-import { Track } from "@src/core/domain";
+import { Genre, Track } from "@src/core/domain";
 import { useEffect, useState } from "react";
 import bundledLibrary from "@src/features/library/data/library.json";
 import { loadLocalLibrary } from "@src/features/library";
@@ -12,13 +12,23 @@ export function useLibrary() {
   const [items, setItems] = useState<Track[]>(bundledLibrary.items as Track[]);
   const [loading, setLoading] = useState(true);
 
+  const mapGenre = (
+    track: Omit<Track, "genre"> & { genre: string }
+  ): Track => ({
+    ...track,
+    genre: (track.genre.toLowerCase() === "sone"
+      ? "Son"
+      : track.genre) as Genre,
+  });
+
   useEffect(() => {
     let isMounted = true;
 
     (async () => {
       try {
         const local = await loadLocalLibrary();
-        if (isMounted && local?.items?.length) setItems(local.items as Track[]);
+        if (isMounted && local?.items?.length)
+          setItems((local.items as Track[]).map(mapGenre));
       } catch (err) {
         console.error("error loading local library:", err);
       } finally {
