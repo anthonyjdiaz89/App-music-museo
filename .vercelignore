@@ -1,7 +1,5 @@
 # Assets que no deben ir a Vercel (solo necesarios para native)
-assets/audio/**/*.mp3
-assets/audio/**/*.m4a
-assets/audio/**/*.wav
+# Los audios se incluyen en el build web via public/
 assets/covers/**/*.JPG
 assets/covers/**/*.jpg
 assets/covers/**/*.png

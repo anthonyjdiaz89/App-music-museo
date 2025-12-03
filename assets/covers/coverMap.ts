@@ -1,7 +1,9 @@
+import { Platform } from "react-native";
 import {
   getCoverPath,
   isCoverDownloaded,
 } from "@src/features/library/services/download.service";
+import { supabase } from "@src/features/library/services/supabase";
 
 // Mapa de track IDs a nombres de archivo de carátula
 export const coverFileMap: Record<string, string> = {
@@ -77,14 +79,23 @@ export const getCoverSource = async (trackId: string) => {
   const filename = coverFileMap[trackId];
   if (!filename) return null;
 
-  const isDownloaded = await isCoverDownloaded(filename);
-
-  if (isDownloaded) {
-    const path = getCoverPath(filename);
-    if (path) {
-      return { uri: path };
+  // En plataformas nativas, verificar si está descargada localmente
+  if (Platform.OS !== "web") {
+    const isDownloaded = await isCoverDownloaded(filename);
+    if (isDownloaded) {
+      const path = getCoverPath(filename);
+      if (path) {
+        return { uri: path };
+      }
     }
   }
+
+  // En web o si no está descargada, usar URL pública de Supabase
+  const { data } = supabase.storage.from("covers").getPublicUrl(filename);
+  if (data?.publicUrl) {
+    return { uri: data.publicUrl };
+  }
+
   return null;
 };
 

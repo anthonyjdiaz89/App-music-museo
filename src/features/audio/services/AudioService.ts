@@ -4,6 +4,7 @@
  */
 
 import { Audio } from "expo-av";
+import { Platform } from "react-native";
 import { Track } from "../../../core/domain/types";
 import { audioMap } from "../../../../assets/audio/map";
 
@@ -182,18 +183,31 @@ class AudioService {
    * Obtener fuente de audio para un track
    */
   private getAudioSource(track: Track) {
-    // 1. PRIORIDAD: assets empaquetados (offline-first)
+    // 1. PRIORIDAD: assets empaquetados (offline-first) para native
     const audioSource = audioMap[track.id];
     if (audioSource) {
       return audioSource;
     }
 
-    // 2. Si no está en el bundle, intentar path local sincronizado
+    // 2. Si no está en el bundle, intentar path local sincronizado (native)
     if (track.localAudioPath) {
       return { uri: track.localAudioPath };
     }
 
-    // 3. Último recurso: URL remota válida (Supabase)
+    // 3. En web, usar archivos desde /audio/ (copiados a public durante build)
+    if (Platform.OS === "web" && track.audioUrl) {
+      // Si ya es una URL completa, usarla directamente
+      if (/^https?:\/\//i.test(track.audioUrl)) {
+        return { uri: track.audioUrl };
+      }
+      
+      // Construir ruta relativa al public folder
+      const webAudioPath = `/audio/${track.audioUrl}`;
+      console.log(`[AudioService] Using web audio path: ${webAudioPath}`);
+      return { uri: webAudioPath };
+    }
+
+    // 4. Último recurso: URL remota válida (Supabase) para otras plataformas
     if (track.audioUrl && /^https?:\/\//i.test(track.audioUrl)) {
       return { uri: track.audioUrl };
     }
