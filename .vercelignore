@@ -1,0 +1,27 @@
+# Assets que no deben ir a Vercel (solo necesarios para native)
+assets/audio/**/*.mp3
+assets/audio/**/*.m4a
+assets/audio/**/*.wav
+assets/covers/**/*.JPG
+assets/covers/**/*.jpg
+assets/covers/**/*.png
+assets/covers/**/*.webp
+*.zip
+
+# Build artifacts de Android/iOS
+android/
+ios/
+*.apk
+*.ipa
+
+# Node modules
+node_modules/
+
+# Datos grandes
+uploads/
+Fuentes/
+
+# Otros
+.git/
+.expo/
+.expo-shared/
