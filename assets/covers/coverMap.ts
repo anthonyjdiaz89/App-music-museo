@@ -80,7 +80,10 @@ export const getCoverSource = async (trackId: string) => {
   const isDownloaded = await isCoverDownloaded(filename);
 
   if (isDownloaded) {
-    return { uri: getCoverPath(filename) };
+    const path = getCoverPath(filename);
+    if (path) {
+      return { uri: path };
+    }
   }
   return null;
 };
